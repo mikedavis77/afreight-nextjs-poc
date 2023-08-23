@@ -1,0 +1,31 @@
+{
+  "name": "nextjs-template",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start",
+    "post-update": "yarn upgrade --latest"
+  },
+  "dependencies": {
+    "@algolia/autocomplete-js": "1.9.2",
+    "@algolia/autocomplete-plugin-algolia-insights": "^1.9.2",
+    "@algolia/autocomplete-plugin-query-suggestions": "^1.9.2",
+    "@algolia/autocomplete-plugin-recent-searches": "^1.9.2",
+    "@algolia/autocomplete-plugin-redirect-url": "^1.9.2",
+    "@algolia/autocomplete-theme-classic": "^1.9.2",
+    "algoliasearch": "4.16.0",
+    "instantsearch.css": "^8.0.0",
+    "next": "latest",
+    "pubsub-js": "^1.9.4",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-instantsearch-hooks-web": "^6.45.0",
+    "search-insights": "^2.6.0",
+    "styled-components": "^5.3.10",
+    "vue-router": "^2.8.1"
+  },
+  "license": "MIT",
+  "keywords": [],
+  "description": ""
+}
