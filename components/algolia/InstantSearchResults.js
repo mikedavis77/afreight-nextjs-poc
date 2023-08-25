@@ -16,7 +16,7 @@ import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
 import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
-import { FallbackFacetWidget } from "./FallBackFacetWidget";
+import { FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 
 const routerBase = history();
 const customRouter = {
@@ -145,7 +145,7 @@ export const InstantSearchResults = () => {
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <main>
           <div className="menu">
-            <DynamicWidgets facets={['*']} fallbackComponent={FallbackFacetWidget}>
+            <DynamicWidgets facets={['*']} fallbackComponent={FallbackFacetWidget} transformItems={transformDynamicFacets}>
               <FallbackFacetWidget
                 attributes={[
                   "hierarchical_categories.lvl0",
