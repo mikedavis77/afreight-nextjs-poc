@@ -29,6 +29,5 @@ export function FallbackFacetWidget(props) {
  * (For exmaple removing empty facets)
  */
 export function transformDynamicFacets(items, props) {
-  console.log('results', props)
   return items;
 }

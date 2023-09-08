@@ -1,6 +1,6 @@
-import { useEffect, useState, useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, RefinementList, useSearchBox } from "react-instantsearch";
-import { history } from 'instantsearch.js/es/lib/routers';
+import { useMemo } from "react";
+import { ClearRefinements, CurrentRefinements, DynamicWidgets, useSearchBox } from "react-instantsearch";
+import { history } from 'instantsearch.js/es/lib/routers/index.js';
 import {
   Hits,
   Configure,
@@ -56,7 +56,7 @@ function CustomSearchBox({ indexId }) {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = () => {
+export const InstantSearchResults = ({serverUrl}) => {
   // Adding a Search Proxy to make sure only tagged requests are being executed
   // https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/js/
   const searchClientMod = {
@@ -82,22 +82,7 @@ export const InstantSearchResults = () => {
     },
   };
 
-  // Flag to prevent NextJS to execute in server side
-  const [clientRender, setClientRender] = useState(false);
 
-  // Using use effect to activate the UI exclusively for client/browser
-  useEffect(() => {
-    console.log('MAIN INSTANT SEARCH USEEFFECT!!!', clientRender);
-    setClientRender(true);
-  }, [clientRender])
-
-  // Disabling SSR rendering for NextJS so it emulates a traditional React APP.
-  if (!clientRender) {
-    return <>
-      Not using Server Rendering...
-    </>;
-  }
-  // This will be excuted only via client/browser
   return (
     <div className="search-is">
       <span className="search-is__app-id">
@@ -106,7 +91,13 @@ export const InstantSearchResults = () => {
       <InstantSearch
         searchClient={searchClientMod}
         indexName={searchConfig.recordsIndex}
-        routing={customRouter}
+        //routing={customRouter}
+        routing={{
+          router: history({
+            getLocation: () =>
+              typeof window === 'undefined' ? new URL(serverUrl) : window.location,
+          }),
+        }}
         insights={{
           insightsClient: insightsClient,
           insightsInitParams: {
