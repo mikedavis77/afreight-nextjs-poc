@@ -1,4 +1,4 @@
-import { HierarchicalMenu, RefinementList, useDynamicWidgets, useHierarchicalMenu, useRefinementList } from "react-instantsearch-hooks-web";
+import { HierarchicalMenu, RefinementList, useDynamicWidgets, useHierarchicalMenu, useRefinementList } from "react-instantsearch";
 import PriceRangePicker from './PriceRangePicker';
 
 /**

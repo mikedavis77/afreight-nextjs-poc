@@ -7,12 +7,16 @@ import { AutocompleteSearchBar } from "./AutocompleteSearchBar";
  */
 const Layout = ({ children }) => {
   return (
-    <>
+    <div className="main_container">
       <header>
         <AutocompleteSearchBar />
       </header>
-      <main>{children}</main>
-    </>
+      <div className="page_container">
+        <div className=" page_content" >
+          <main>{children}</main>
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -1,4 +1,4 @@
-@import './algolia.css';
+@import './algolia.scss';
 
 * {
   margin: 0;
@@ -22,4 +22,15 @@
   align-items: center;
   height: 100vh;
   background: #333;
+}
+
+.main_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  align-items: stretch;
+  width: 100vw;
+  header {
+    width: 100vw;
+  }
 }

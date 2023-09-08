@@ -1,4 +1,4 @@
-import { Highlight } from 'react-instantsearch-hooks-web';
+import { Highlight } from "react-instantsearch";
 
 export const HitComponent = ({ hit, sendEvent }) => (
   <div className="hit">

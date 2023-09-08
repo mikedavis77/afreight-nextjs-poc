@@ -1,5 +1,4 @@
 import React from "react";
-import { AutocompleteSearchBar } from "../../components/algolia/AutocompleteSearchBar";
 import { searchConfig } from "../../lib/algoliaConfig";
 
 /**

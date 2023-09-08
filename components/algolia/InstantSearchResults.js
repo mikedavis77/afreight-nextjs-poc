@@ -1,12 +1,12 @@
 import { useEffect, useState, useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, RefinementList, useSearchBox } from "react-instantsearch-hooks-web";
+import { ClearRefinements, CurrentRefinements, DynamicWidgets, RefinementList, useSearchBox } from "react-instantsearch";
 import { history } from 'instantsearch.js/es/lib/routers';
 import {
   Hits,
   Configure,
   Pagination,
   InstantSearch,
-} from "react-instantsearch-hooks-web";
+} from "react-instantsearch";
 
 // Include only the reset
 import "instantsearch.css/themes/reset.css";

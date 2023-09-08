@@ -1,4 +1,4 @@
-import { HierarchicalMenu, RefinementList } from "react-instantsearch-hooks-web";
+import { HierarchicalMenu, RefinementList } from "react-instantsearch";
 import { friendlyAttributeName } from "../../lib/algoliaConfig";
 
 

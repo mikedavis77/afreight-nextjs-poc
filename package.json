@@ -20,7 +20,8 @@
     "pubsub-js": "^1.9.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "react-instantsearch-hooks-web": "^6.45.0",
+    "react-instantsearch": "^7.0.2",
+    "sass": "^1.66.1",
     "search-insights": "^2.6.0",
     "styled-components": "^5.3.10",
     "vue-router": "^2.8.1"
