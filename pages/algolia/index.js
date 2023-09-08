@@ -8,7 +8,6 @@ import { searchConfig } from "../../lib/algoliaConfig";
  */
 export default function NonSearchPage() {
   return <div className="page_container">
-    <AutocompleteSearchBar />
       <div className=" page_content" >
         <h1>Hello World</h1>
         <br></br>

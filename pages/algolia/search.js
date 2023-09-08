@@ -1,5 +1,4 @@
 import React from "react";
-import { AutocompleteSearchBar } from "../../components/algolia/AutocompleteSearchBar";
 import { InstantSearchResults } from "../../components/algolia/InstantSearchResults";
 
 /**
@@ -8,7 +7,6 @@ import { InstantSearchResults } from "../../components/algolia/InstantSearchResu
  */
 export default function SearchPage() {
   return <div className="page_container">
-    <AutocompleteSearchBar />
     <InstantSearchResults />
   </div>
 }

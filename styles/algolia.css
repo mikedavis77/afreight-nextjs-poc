@@ -359,4 +359,8 @@ nav {
   font-size: .9em;
 }
 
+.search-is .main-click--handler {
+  text-align: center;
+}
+
 /* Autocomplete ENDS */

@@ -2,21 +2,19 @@ import { useEffect, useState, useMemo } from "react";
 import { ClearRefinements, CurrentRefinements, DynamicWidgets, RefinementList, useSearchBox } from "react-instantsearch-hooks-web";
 import { history } from 'instantsearch.js/es/lib/routers';
 import {
-  HierarchicalMenu,
   Hits,
   Configure,
   Pagination,
   InstantSearch,
 } from "react-instantsearch-hooks-web";
 
-// import { HitComponent } from "../components/HitComponent";
-import { Highlight } from 'react-instantsearch-hooks-web';
 // Include only the reset
 import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
 import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
 import { FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
+import { HitComponent } from "./HitComponent";
 
 const routerBase = history();
 const customRouter = {
@@ -34,31 +32,6 @@ const customRouter = {
     return url;
   }
 }
-
-export const HitComponent = ({ hit, sendEvent }) => (
-  <div className="hit">
-    <div className="hit-picture">
-      <img src={`${hit.image_urls[0]}`} alt={hit.name} width={100} height={100} />
-    </div>
-    <div className="hit-content">
-      <div>
-        <Highlight attribute="name" hit={hit} />
-      </div>
-      <div className="hit-type">
-        <Highlight attribute="brand" hit={hit} />
-      </div>
-      <div className="hit-description">
-        <span> ${hit.price.value}</span>
-      </div>
-      <p className='product-actions'>
-        <button className="conversion-btn"
-          onClick={() => {
-            sendEvent('conversion', hit, 'Product Ordered');
-          }}>Add to cart</button>
-      </p>
-    </div>
-  </div>
-);
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
@@ -141,7 +114,7 @@ export const InstantSearchResults = () => {
           },
         }}
       >
-        <Configure hitsPerPage={12} analyticsTags={['web-search']} />
+        <Configure hitsPerPage={24} analyticsTags={['web-search']} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <main>
           <div className="menu">

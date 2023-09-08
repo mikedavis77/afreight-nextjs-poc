@@ -1,4 +1,5 @@
 // pages/_app.js
+import Layout from "../components/algolia/Layout";
 import "../styles/global.css";
 import Head from "next/head";
 
@@ -22,7 +23,9 @@ export default function MyApp({ Component, pageProps }) {
           media="all"
         />
       </Head>
-      <Component {...pageProps} />
+      <Layout>
+        <Component {...pageProps} />
+      </Layout>
     </>
   );
 }
