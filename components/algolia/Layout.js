@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { AutocompleteSearchBar } from "./AutocompleteSearchBar";
 
 /**
@@ -8,6 +9,9 @@ import { AutocompleteSearchBar } from "./AutocompleteSearchBar";
 const Layout = ({ children }) => {
   return (
     <div className="main_container">
+      <Link href="/">
+        {"⌂ Home"}
+      </Link>
       <header>
         <AutocompleteSearchBar />
       </header>

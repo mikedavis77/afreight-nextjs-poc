@@ -8,7 +8,7 @@ import { searchConfig } from "../../lib/algoliaConfig";
 export default function NonSearchPage() {
   return <div className="page_container">
       <div className=" page_content" >
-        <h1>Hello World</h1>
+        <h1>NextJS SRR Algolia Demo</h1>
         <br></br>
         <h2>This is any other page different than {searchConfig.searchPagePath} or any category (catalog) page.</h2>
         <br></br>

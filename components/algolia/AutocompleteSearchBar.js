@@ -17,7 +17,34 @@ import { searchConfig, insightsClient, searchClient, pubsub, QUERY_UPDATE_EVT } 
 const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
   key: "navbar",
   limit: 3,
+  limit: 3,
+  transformSource({ source }) {
+    return {
+      ...source,
+      onSelect({ state }) {
+        autocompleteSubmitHandler(state);
+      },
+    };
+  },
 });
+
+/**
+ * Submit function for autocomplete
+ * @param {} param0
+ */
+const autocompleteSubmitHandler = (state)=> {
+  updateUrlParameter(`${searchConfig.recordsIndex}[query]`, state.query);
+
+  // Validate if you are in the searchPage (Otherwise redirect using q param)
+  if (window.location.pathname !== searchConfig.searchPagePath) {
+    window.location.href = `${searchConfig.searchPagePath}?${searchConfig.recordsIndex}[query]=${state.query}`;
+  } else {
+    pubsub.publish(QUERY_UPDATE_EVT, {
+      query: state.query,
+      index: searchConfig.recordsIndex,
+    });
+  }
+}
 
 /**
  * Auotomplete Search Bar
@@ -37,6 +64,14 @@ export function AutocompleteSearchBar() {
     getSearchParams() {
       return {
         hitsPerPage: 3,
+      };
+    },
+    transformSource({ source }) {
+      return {
+        ...source,
+        onSelect({ state }) {
+          autocompleteSubmitHandler(state);
+        },
       };
     },
   });
@@ -66,17 +101,7 @@ export function AutocompleteSearchBar() {
       insights: true,
       placeholder: "Search for Products",
       onSubmit({ state }) {
-        updateUrlParameter(`${searchConfig.recordsIndex}[query]`, state.query);
-
-        // Validate if you are in the searchPage (Otherwise redirect using q param)
-        if (window.location.pathname !== searchConfig.searchPagePath) {
-          window.location.href = `${searchConfig.searchPagePath}?${searchConfig.recordsIndex}[query]=${state.query}`;
-        } else {
-          pubsub.publish(QUERY_UPDATE_EVT, {
-            query: state.query,
-            index: searchConfig.recordsIndex,
-          });
-        }
+        autocompleteSubmitHandler(state);
       },
       plugins: [
         querySuggestionsPlugin,

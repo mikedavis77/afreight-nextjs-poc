@@ -1,6 +1,5 @@
 import { useMemo } from "react";
 import { ClearRefinements, CurrentRefinements, DynamicWidgets, useSearchBox } from "react-instantsearch";
-import { history } from 'instantsearch.js/es/lib/routers/index.js';
 import {
   Hits,
   Configure,
@@ -16,23 +15,6 @@ import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } 
 import { FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 import { HitComponent } from "./HitComponent";
 
-const routerBase = history();
-const customRouter = {
-  ...routerBase,
-  createUrl(routeState) {
-    const mapping = routerBase.createURL(routeState);
-    console.log('mapping', mapping)
-    mapping.replace('query', 'term');
-    return mapping;
-  },
-  parseUrl(params) {
-
-    console.log('params', params)
-    const url = routerBase.parseUrl(params);
-    return url;
-  }
-}
-
 /**
  * Virtual SearchBox that receives updates from Autocomplete
  * @param props
@@ -44,7 +26,6 @@ function CustomSearchBox({ indexId }) {
     // Listen to the propagated events and update the app
     pubsub.subscribe(QUERY_UPDATE_EVT, (_msg, data) => {
       if (data.index === indexId) {
-        console.log('EXISTE UN LLAMADOOO@@@')
         refine(data.query);
       }
     });
@@ -56,7 +37,7 @@ function CustomSearchBox({ indexId }) {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({serverUrl}) => {
+export const InstantSearchResults = ({router}) => {
   // Adding a Search Proxy to make sure only tagged requests are being executed
   // https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/js/
   const searchClientMod = {
@@ -92,12 +73,7 @@ export const InstantSearchResults = ({serverUrl}) => {
         searchClient={searchClientMod}
         indexName={searchConfig.recordsIndex}
         //routing={customRouter}
-        routing={{
-          router: history({
-            getLocation: () =>
-              typeof window === 'undefined' ? new URL(serverUrl) : window.location,
-          }),
-        }}
+        routing={router}
         insights={{
           insightsClient: insightsClient,
           insightsInitParams: {
