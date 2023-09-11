@@ -163,13 +163,13 @@ nav {
     }
   }
   .ais-Hits-item {
-      flex-basis: 30% !important;
-      position: relative;
-      padding-bottom: 50px;
-      margin-bottom: 20px;
-      max-width: 240px;
-      min-width: 220px;
-      flex-shrink: 0;
+    flex-basis: 30% !important;
+    position: relative;
+    padding-bottom: 50px;
+    margin-bottom: 20px;
+    max-width: 240px;
+    min-width: 220px;
+    flex-shrink: 0;
   }
   .ais-Hits-list {
     display: flex;
@@ -351,3 +351,23 @@ nav {
 }
 
 /* Autocomplete ENDS */
+
+.category-pages-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-content: flex-start;
+  a {
+    display: inline-block;
+    font-size: .8em;
+    margin-left: 2px;
+    button {
+      margin: 2px 0;
+      background-color: rgba(106, 205, 225, 0.5);
+    }
+  }
+}
+
+.category-title {
+  color: #535bf2;
+}

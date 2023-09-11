@@ -11,8 +11,17 @@ export default function Home() {
       <br></br>
       <p>Upon search, the user will be redirected to the search page passing the query as an URL value.</p>
     </div>
-    <Link href="/algolia/search">
-      Search Bar + Search Results experience.
-    </Link>
+    <ol className='example-links'>
+      <li>
+        <Link href="/algolia/search">
+          Search Bar + Search Results experience.
+        </Link>
+      </li>
+      <li>
+        <Link href="/algolia/c/women/bags">
+          {`Women > Bags Category Page.`}
+        </Link>
+      </li>
+    </ol>
   </div>
 }

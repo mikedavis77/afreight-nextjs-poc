@@ -14,6 +14,7 @@ import "instantsearch.css/themes/satellite.css";
 import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
 import { FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 import { HitComponent } from "./HitComponent";
+import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
@@ -37,7 +38,7 @@ function CustomSearchBox({ indexId }) {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({router}) => {
+export const InstantSearchResults = ({ routing, extraSearchParams={} }) => {
   // Adding a Search Proxy to make sure only tagged requests are being executed
   // https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/js/
   const searchClientMod = {
@@ -63,7 +64,6 @@ export const InstantSearchResults = ({router}) => {
     },
   };
 
-
   return (
     <div className="search-is">
       <span className="search-is__app-id">
@@ -73,7 +73,7 @@ export const InstantSearchResults = ({router}) => {
         searchClient={searchClientMod}
         indexName={searchConfig.recordsIndex}
         //routing={customRouter}
-        routing={router}
+        routing={routing}
         insights={{
           insightsClient: insightsClient,
           insightsInitParams: {
@@ -81,8 +81,9 @@ export const InstantSearchResults = ({router}) => {
           },
         }}
       >
-        <Configure hitsPerPage={24} analyticsTags={['web-search']} />
+        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
+        <CategoryPageSuggestions router={routing} />
         <main>
           <div className="menu">
             <DynamicWidgets facets={['*']} fallbackComponent={FallbackFacetWidget} transformItems={transformDynamicFacets}>

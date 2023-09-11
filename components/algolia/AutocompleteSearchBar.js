@@ -12,6 +12,9 @@ import { createAlgoliaInsightsPlugin } from "@algolia/autocomplete-plugin-algoli
 import { getQueryParam, updateUrlParameter } from "../../lib/common";
 import { createRoot } from 'react-dom/client';
 import { searchConfig, insightsClient, searchClient, pubsub, QUERY_UPDATE_EVT } from "../../lib/algoliaConfig";
+import { useRouter } from "next/router";
+
+let router = [];
 
 // Recent Search Plugin
 const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
@@ -32,12 +35,12 @@ const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
  * Submit function for autocomplete
  * @param {} param0
  */
-const autocompleteSubmitHandler = (state)=> {
+const autocompleteSubmitHandler = (state) => {
   updateUrlParameter(`${searchConfig.recordsIndex}[query]`, state.query);
 
   // Validate if you are in the searchPage (Otherwise redirect using q param)
   if (window.location.pathname !== searchConfig.searchPagePath) {
-    window.location.href = `${searchConfig.searchPagePath}?${searchConfig.recordsIndex}[query]=${state.query}`;
+    router.push(`${searchConfig.searchPagePath}?${searchConfig.recordsIndex}[query]=${state.query}`);
   } else {
     pubsub.publish(QUERY_UPDATE_EVT, {
       query: state.query,
@@ -50,7 +53,7 @@ const autocompleteSubmitHandler = (state)=> {
  * Auotomplete Search Bar
  */
 export function AutocompleteSearchBar() {
-
+  router = useRouter();
   // Load default catalog
   const containerRef = useRef(null);
   const panelRootRef = useRef(null);
