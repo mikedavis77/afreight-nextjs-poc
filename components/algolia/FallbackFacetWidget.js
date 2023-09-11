@@ -8,20 +8,23 @@ import { friendlyAttributeName } from "../../lib/algoliaConfig";
  * @returns
  */
 export function FallbackFacetWidget(props) {
-  const { attributes, attribute } = props;
+  const { attributes, attribute, component } = props;
   if (attributes) {
     return <div attributes={attributes} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attributes[0]).toUpperCase()}</h3>
-    <HierarchicalMenu {...props} />
+      <HierarchicalMenu {...props} />
     </div>
   }
-
-  if (attribute && !attribute.includes('.lvl')) {
+  if (component) {
     return <div attribute={attribute} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
-      <RefinementList {...props} />
+      <Component {...props} />
     </div>
   }
+  return <div attribute={attribute} className="is-facet">
+    <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
+    <RefinementList {...props} />
+  </div>
 }
 
 /**

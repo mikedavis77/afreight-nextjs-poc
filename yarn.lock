@@ -907,6 +907,14 @@ react-instantsearch-core@7.0.2:
     instantsearch.js "4.56.10"
     use-sync-external-store "^1.0.0"
 
+react-instantsearch-router-nextjs@^7.0.2:
+  version "7.0.2"
+  resolved "https://registry.yarnpkg.com/react-instantsearch-router-nextjs/-/react-instantsearch-router-nextjs-7.0.2.tgz#4f3e6f141526ffb75c5b6e626d5fe418da36a90d"
+  integrity sha512-j06vqcSmehRIXP8WsA9QGy7cL+DDD3I1yeRFno0fQFhcTer8Ga0Ip1GOwwtycM7+qEY84B9uSlaXExi55ALEiQ==
+  dependencies:
+    instantsearch.js "4.56.10"
+    react-instantsearch-core "7.0.2"
+
 react-instantsearch@^7.0.2:
   version "7.0.2"
   resolved "https://registry.yarnpkg.com/react-instantsearch/-/react-instantsearch-7.0.2.tgz#a3f204e759f9b019031ca431aaa6e8924160eae0"

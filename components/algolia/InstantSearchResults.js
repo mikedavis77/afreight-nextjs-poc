@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, useSearchBox } from "react-instantsearch";
+import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, useSearchBox } from "react-instantsearch";
 import {
   Hits,
   Configure,
@@ -96,6 +96,10 @@ export const InstantSearchResults = ({ routing, extraSearchParams={} }) => {
                 ]}
                 separator=" > "
                 showMore={true}
+              />
+              <FallbackFacetWidget
+                attribute={"price"}
+                component={RangeInput}
               />
             </DynamicWidgets>
           </div>

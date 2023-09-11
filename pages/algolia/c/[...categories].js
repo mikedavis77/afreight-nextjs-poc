@@ -1,8 +1,9 @@
 import React from "react";
 import { InstantSearchSSRProvider, getServerState } from 'react-instantsearch';
 import { renderToString } from 'react-dom/server';
-import { history } from 'instantsearch.js/es/lib/routers/index.js';
 import { InstantSearchResults } from "../../../components/algolia/InstantSearchResults";
+import singletonRouter from 'next/router';
+import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 // const routerBase = history();
 // const customRouter = {
@@ -32,12 +33,7 @@ export default function Category({ serverState, serverUrl, extraSearchParams }) 
         <h2 className="category-title"> Category Page: {`[${extraSearchParams.filters}] `}</h2>
       </header>
       <InstantSearchResults
-        routing={{
-          router: history({
-            getLocation: () =>
-              typeof window === 'undefined' ? new URL(serverUrl) : window.location,
-          }),
-        }}
+        routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl }) }}
         extraSearchParams={extraSearchParams}
       />
     </InstantSearchSSRProvider>

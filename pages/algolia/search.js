@@ -2,7 +2,8 @@ import React from "react";
 import { InstantSearchResults } from "../../components/algolia/InstantSearchResults";
 import { InstantSearchSSRProvider, getServerState } from 'react-instantsearch';
 import { renderToString } from 'react-dom/server';
-import { history } from 'instantsearch.js/es/lib/routers/index.js';
+import singletonRouter from 'next/router';
+import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
 // const routerBase = history();
 // const customRouter = {
@@ -29,12 +30,8 @@ export default function SearchPage({ serverState, serverUrl }) {
   return <div className="page_container">
     <InstantSearchSSRProvider {...serverState}>
       <InstantSearchResults
-        routing={{
-          router: history({
-            getLocation: () =>
-              typeof window === 'undefined' ? new URL(serverUrl) : window.location,
-          }),
-        }} />
+        routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl }) }}
+        />
     </InstantSearchSSRProvider>
   </div>
 }
