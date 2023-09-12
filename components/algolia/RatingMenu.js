@@ -15,7 +15,7 @@ export function RatingMenu(props) {
   return (
     <ul className='as-reviews-widgets'>
       {items.map((item) => (
-        <li>
+        <li key={item.value}>
           <a
             aria-label={`${item.value} &amp; up`}
             href={createURL(item.value)}

@@ -24,7 +24,7 @@
     "react-instantsearch-router-nextjs": "^7.0.2",
     "react-responsive-carousel": "^3.2.23",
     "sass": "^1.66.1",
-    "search-insights": "^2.6.0",
+    "search-insights": "^2.8.2",
     "styled-components": "^5.3.10",
     "vue-router": "^2.8.1"
   },

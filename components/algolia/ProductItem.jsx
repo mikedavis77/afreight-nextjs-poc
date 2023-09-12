@@ -1,11 +1,17 @@
-import { searchConfig } from "../../lib/algoliaConfig";
+import { searchConfig, storeInfoForAfterEvents } from "../../lib/algoliaConfig";
+import singletonRouter from 'next/router';
 
 export function ProductItem({ hit, components, navigator }) {
+
   return (
     <div className="aa-ItemWrapper" onClick={() => {
-      console.log('Here you can redirect to your item url...');
-      // Use navigator to make sure Algolia sends the corresponding click events.
-      navigator.navigate({ itemUrl: `${searchConfig.productPdpPathPrefix}/${hit.slug}/${hit.objectID}` });
+      storeInfoForAfterEvents({
+        queryId: hit.__autocomplete_queryID,
+        objectIDs: [hit.objectID],
+        positons: [hit.__position],
+        indexName: hit.__autocomplete_indexName
+      });
+      singletonRouter.push(`${searchConfig.productPdpPathPrefix}/${hit.slug}/${hit.objectID}`);
     }}>
       <div className="aa-ItemContent">
         <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">

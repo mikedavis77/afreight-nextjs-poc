@@ -1,4 +1,4 @@
-import { searchClient, searchConfig } from "../../../lib/algoliaConfig";
+import { getInfoForAfterEvents, insightsClient, searchClient, searchConfig } from "../../../lib/algoliaConfig";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
@@ -23,6 +23,32 @@ export async function getServerSideProps({ query }) {
  * @returns
  */
 function ProductDetailPage({ hit }) {
+
+  const handleConvertionAfterSearch = () => {
+    const storedInfo = getInfoForAfterEvents();
+    if (storedInfo && storedInfo.queryId) {
+      insightsClient('convertedObjectIDsAfterSearch', {
+        index: storedInfo.indexName,
+        eventName: 'pdp_add_to_cart',
+        queryID: storedInfo.queryId,
+        objectIDs: storedInfo.objectIDs
+      });
+    }
+  }
+
+  const handleClickAfterSearch = () => {
+    const storedInfo = getInfoForAfterEvents();
+    if (storedInfo && storedInfo.queryId) {
+      insightsClient('clickedObjectIDsAfterSearch', {
+        index: storedInfo.indexName,
+        eventName: 'pdp_click',
+        queryID: storedInfo.queryId,
+        objectIDs: storedInfo.objectIDs,
+        positions: storedInfo.positions,
+      });
+    }
+  }
+
   return (
     <>
       <div className="pdp-hit">
@@ -34,7 +60,7 @@ function ProductDetailPage({ hit }) {
             <h1>{hit.name}</h1>
           </div>
           <div className="pdp-hit-pictures">
-            <Carousel showArrows={true} showThumbs={true} axis={"horizontal"} centerMode="false" autoPlay={true} emulateTouch={true}>
+            <Carousel showArrows={true} showThumbs={true} axis={"horizontal"} centerMode="false" autoPlay={true} emulateTouch={true} onClickItem={handleClickAfterSearch} onClickThumb={handleClickAfterSearch}>
               {hit.image_urls.filter(u => u.length ).map((url, index) => (
                 <div key={index}>
                   <img src={url} alt={`Image ${index}`} />
@@ -49,9 +75,7 @@ function ProductDetailPage({ hit }) {
           <p className='product-actions'>
             <button className="conversion-btn"
               onClick={(ev) => {
-                ev.preventDefault();
-                sendEvent('conversion', hit, 'Product Ordered');
-                ev.stopPropagation();
+                handleConvertionAfterSearch();
               }}>Add to cart</button>
           </p>
         </div>
