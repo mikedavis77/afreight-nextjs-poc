@@ -77,7 +77,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
         insights={{
           insightsClient: insightsClient,
           insightsInitParams: {
-            useCookie: false,
+            useCookie: true,
           },
         }}
       >

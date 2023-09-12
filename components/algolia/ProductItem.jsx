@@ -1,10 +1,11 @@
+import { searchConfig } from "../../lib/algoliaConfig";
+
 export function ProductItem({ hit, components, navigator }) {
   return (
     <div className="aa-ItemWrapper" onClick={() => {
       console.log('Here you can redirect to your item url...');
       // Use navigator to make sure Algolia sends the corresponding click events.
-      alert(`Triggering Navigation to ${hit.url}`);
-      navigator.navigate({ itemUrl: hit.url });
+      navigator.navigate({ itemUrl: `${searchConfig.productPdpPathPrefix}/${hit.slug}/${hit.objectID}` });
     }}>
       <div className="aa-ItemContent">
         <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
@@ -12,6 +13,7 @@ export function ProductItem({ hit, components, navigator }) {
         </div>
 
         <div className="aa-ItemContentBody">
+          <div className="aa-ItemId">{hit.objectID}</div>
           <div className="aa-ItemContentTitle">
             <components.Highlight hit={hit} attribute="name" />
           </div>

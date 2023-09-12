@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useRefinementList } from "react-instantsearch";
+import { searchConfig } from "../../lib/algoliaConfig";
 
 /**
  * Count occurrences of a substring in a str.
@@ -24,7 +25,10 @@ function replaceAll(str, search, replacement) {
   var regExp = new RegExp(search, "g");
   return str.replace(regExp, replacement).toLowerCase();
 }
-
+/**
+ * React component that produce category page links.
+ * @returns
+ */
 export function CategoryPageSuggestions() {
   const {
     items,
@@ -47,7 +51,7 @@ export function CategoryPageSuggestions() {
 
   return (<div className="category-pages-btn">
     {finalItems.map((item) => {
-      const url = `/algolia/c/${replaceAll(item.value, ' > ', '/')}`;
+      const url = `${searchConfig.categoryPlpPathPrefix}/${replaceAll(item.value, ' > ', '/')}`;
       return <Link key={item.value} href={url}><button key={item.value}>{item.label}</button></Link>
     })}
   </div>)
