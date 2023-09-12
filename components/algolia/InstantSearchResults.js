@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, useSearchBox } from "react-instantsearch";
+import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, useSearchBox } from "react-instantsearch";
 import {
   Hits,
   Configure,
@@ -109,6 +109,10 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
             </DynamicWidgets>
           </div>
           <div className="results">
+          <div className="ais-sort-by">
+            <span>Sort By:</span>
+            <SortBy items={searchConfig.sortByIndices} />
+          </div>
             <div className="refinements-container">
               <CurrentRefinements transformItems={(items) => {
                 return items.map((item) => {

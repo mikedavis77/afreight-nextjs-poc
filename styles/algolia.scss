@@ -117,7 +117,16 @@ nav {
   .ais-Pagination {
     margin-bottom: 25px;
   }
-
+  .ais-sort-by {
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    span {
+      margin: 10px;
+    }
+  }
   .ais-RangeInput {
     transform: scale(0.85);
     transform-origin: top left;
@@ -125,7 +134,7 @@ nav {
   }
   .as-reviews-widgets {
     list-style-type: none;
-    transform: scale(.8);
+    transform: scale(0.8);
     transform-origin: top left;
   }
 
@@ -311,7 +320,8 @@ nav {
 }
 
 /* Autocomplete START */
-.aa-ItemId, .is-ItemId {
+.aa-ItemId,
+.is-ItemId {
   font-weight: bold;
   color: darkgray;
 }
