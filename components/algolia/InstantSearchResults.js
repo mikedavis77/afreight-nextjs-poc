@@ -12,7 +12,7 @@ import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
 import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
-import { FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
+import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 
@@ -38,7 +38,7 @@ function CustomSearchBox({ indexId }) {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({ routing, extraSearchParams={} }) => {
+export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
   // Adding a Search Proxy to make sure only tagged requests are being executed
   // https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/js/
   const searchClientMod = {
@@ -97,10 +97,9 @@ export const InstantSearchResults = ({ routing, extraSearchParams={} }) => {
                 separator=" > "
                 showMore={true}
               />
-              <FallbackFacetWidget
-                attribute={"price"}
-                component={RangeInput}
-              />
+              <FacetWidgetPanel attribute={"price.value"}>
+                <RangeInput attribute="price.value" />
+              </FacetWidgetPanel>
             </DynamicWidgets>
           </div>
           <div className="results">

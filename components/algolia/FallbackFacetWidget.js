@@ -1,6 +1,5 @@
-import { HierarchicalMenu, RefinementList } from "react-instantsearch";
+import  { HierarchicalMenu, RefinementList } from "react-instantsearch";
 import { friendlyAttributeName } from "../../lib/algoliaConfig";
-
 
 /**
  * Use this widget to render your facets
@@ -8,23 +7,26 @@ import { friendlyAttributeName } from "../../lib/algoliaConfig";
  * @returns
  */
 export function FallbackFacetWidget(props) {
-  const { attributes, attribute, component } = props;
+  const { attributes, attribute, mycomponent } = props;
   if (attributes) {
     return <div attributes={attributes} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attributes[0]).toUpperCase()}</h3>
       <HierarchicalMenu {...props} />
     </div>
   }
-  if (component) {
+  else if (mycomponent && attribute) {
+    const MyComponent = IsComponents[mycomponent];
     return <div attribute={attribute} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
-      <Component {...props} />
+      <MyComponent {...props} />
     </div>
   }
-  return <div attribute={attribute} className="is-facet">
-    <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
-    <RefinementList {...props} />
-  </div>
+  else if (!attribute.includes('hierarchical')) {
+    return <div attribute={attribute} className="is-facet">
+      <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
+      <RefinementList {...props} />
+    </div>
+  }
 }
 
 /**
@@ -33,4 +35,11 @@ export function FallbackFacetWidget(props) {
  */
 export function transformDynamicFacets(items, props) {
   return items;
+}
+
+export function FacetWidgetPanel({attribute, children}) {
+  return <div attribute={attribute} className="is-facet">
+    <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
+    {children}
+  </div>
 }

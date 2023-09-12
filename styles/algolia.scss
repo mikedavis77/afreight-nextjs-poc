@@ -118,6 +118,11 @@ nav {
     margin-bottom: 25px;
   }
 
+  .ais-RangeInput {
+    transform: scale(0.85);
+    transform-origin: left;
+  }
+
   .results {
     flex: 6;
   }
@@ -359,7 +364,7 @@ nav {
   align-content: flex-start;
   a {
     display: inline-block;
-    font-size: .8em;
+    font-size: 0.8em;
     margin-left: 2px;
     button {
       margin: 2px 0;
