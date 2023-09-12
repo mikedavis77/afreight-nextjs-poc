@@ -15,6 +15,7 @@ import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } 
 import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
+import { RatingMenu } from "./RatingMenu";
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
@@ -100,6 +101,11 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
               <FacetWidgetPanel attribute={"price.value"}>
                 <RangeInput attribute="price.value" />
               </FacetWidgetPanel>
+
+              <FacetWidgetPanel attribute={"reviews.rating"}>
+                <RatingMenu attribute="reviews.rating" />
+              </FacetWidgetPanel>
+
             </DynamicWidgets>
           </div>
           <div className="results">

@@ -120,7 +120,13 @@ nav {
 
   .ais-RangeInput {
     transform: scale(0.85);
-    transform-origin: left;
+    transform-origin: top left;
+    margin-bottom: 10px;
+  }
+  .as-reviews-widgets {
+    list-style-type: none;
+    transform: scale(.8);
+    transform-origin: top left;
   }
 
   .results {
