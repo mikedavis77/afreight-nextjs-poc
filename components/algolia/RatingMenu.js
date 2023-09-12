@@ -30,7 +30,7 @@ export function RatingMenu(props) {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 strokeWidth={isFilled ? 0 : 1.5}
-                fill={isFilled? 'currentColor': 'lightgray'}
+                fill={isFilled ? (item.isRefined ? 'orange' : 'currentColor'): 'lightgray'}
                 aria-hidden="true"
                 width="24"
                 height="24"
