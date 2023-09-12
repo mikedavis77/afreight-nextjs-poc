@@ -123,6 +123,8 @@ nav {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    transform: scale(.8);
+    transform-origin: top right;
     span {
       margin: 10px;
     }
