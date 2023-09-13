@@ -12,10 +12,10 @@ import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
 import { QUERY_UPDATE_EVT, insightsMiddleware, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
-import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
+import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./DynamicFacetsWidgets";
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
