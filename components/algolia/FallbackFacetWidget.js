@@ -37,6 +37,11 @@ export function transformDynamicFacets(items, props) {
   return items;
 }
 
+/**
+ * Function that adds a label when rendering a facet widget.
+ * @param {*} param0
+ * @returns
+ */
 export function FacetWidgetPanel({attribute, children}) {
   return <div attribute={attribute} className="is-facet">
     <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
