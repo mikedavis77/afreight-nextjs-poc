@@ -16,19 +16,22 @@ export const HitComponent = ({ hit, sendEvent }) => {
   }
   return (<div className="hit">
     <div className="hit-picture" onClick={() => handleObjectClick(hit)}>
-      <img src={`${hit.image_urls[0]}`} alt={hit.name} width={100} height={100} />
+      <img src={`${hit.stockimage}`} alt={hit.produtName} width={100} height={100} />
     </div>
     <div className="hit-content">
       <div className="aa-ItemId" onClick={() => handleObjectClick(hit)}>{hit.objectID}</div>
       <div>
-        <Highlight attribute="name" hit={hit} onClick={() => handleObjectClick(hit)} />
+        <Highlight attribute="produtName" hit={hit} onClick={() => handleObjectClick(hit)} />
       </div>
       <div className="hit-type">
-        <Highlight attribute="type" hit={hit} />
+        <span>Store: {hit.storeId}</span>
+      </div>
+      <div className="hit-type">
+        <span>Condition: {hit.invType}</span>
       </div>
       <div className="hit-description">
         {/* <span> - {hit.rating} stars</span> */}
-        <span> - ${hit.price.value}</span>
+        <span> ${hit.salePrice}</span>
       </div>
       <p className='product-actions'>
         <button className="conversion-btn"

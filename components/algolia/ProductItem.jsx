@@ -15,16 +15,16 @@ export function ProductItem({ hit, components, navigator }) {
     }}>
       <div className="aa-ItemContent">
         <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
-          <img src={hit.image_urls[0]} alt={hit.name} width="40" height="40" />
+          <img src={hit.stockimage} alt={hit.productName} width="40" height="40" />
         </div>
 
         <div className="aa-ItemContentBody">
           <div className="aa-ItemId">{hit.objectID}</div>
           <div className="aa-ItemContentTitle">
-            <components.Highlight hit={hit} attribute="name" />
+            <components.Highlight hit={hit} attribute="productName" />
           </div>
           <div className="aa-ItemContentDescription">
-            By <strong>{hit.brand}</strong> in{' '}
+            By <strong>{hit.attributes.brand}</strong> in{' '}
             {/* <strong>{hit.categories[0]}</strong> */}
           </div>
         </div>

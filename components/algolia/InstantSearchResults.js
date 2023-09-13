@@ -1,5 +1,5 @@
 import { useLayoutEffect, useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, useInstantSearch, useSearchBox } from "react-instantsearch";
+import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useInstantSearch, useSearchBox } from "react-instantsearch";
 import {
   Hits,
   Configure,
@@ -98,20 +98,24 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
             <DynamicWidgets facets={['*']} fallbackComponent={FallbackFacetWidget} transformItems={transformDynamicFacets}>
               <FallbackFacetWidget
                 attributes={[
-                  "hierarchical_categories.lvl0",
-                  "hierarchical_categories.lvl1",
-                  "hierarchical_categories.lvl2",
-                  "hierarchical_categories.lvl3",
+                  "hierarchicalCategories.lvl0",
+                  "hierarchicalCategories.lvl1",
+                  "hierarchicalCategories.lvl2",
+                  "hierarchicalCategories.lvl3",
                 ]}
                 separator=" > "
                 showMore={true}
               />
-              <FacetWidgetPanel attribute={"price.value"}>
-                <RangeInput attribute="price.value" />
+              <FacetWidgetPanel attribute={"salePrice"}>
+                <RangeInput attribute="salePrice" />
               </FacetWidgetPanel>
 
-              <FacetWidgetPanel attribute={"reviews.rating"}>
-                <RatingMenu attribute="reviews.rating" />
+              <FacetWidgetPanel attribute={"averageRating"}>
+                <RatingMenu attribute="averageRating" />
+              </FacetWidgetPanel>
+
+              <FacetWidgetPanel attribute={"openBox"}>
+                <ToggleRefinement attribute="openBox" />
               </FacetWidgetPanel>
 
             </DynamicWidgets>
