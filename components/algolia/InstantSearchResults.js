@@ -1,5 +1,5 @@
-import { useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, useSearchBox } from "react-instantsearch";
+import { useLayoutEffect, useMemo } from "react";
+import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, useInstantSearch, useSearchBox } from "react-instantsearch";
 import {
   Hits,
   Configure,
@@ -11,7 +11,7 @@ import {
 import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
-import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
+import { QUERY_UPDATE_EVT, insightsMiddleware, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
 import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./FallBackFacetWidget";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
@@ -34,6 +34,20 @@ function CustomSearchBox({ indexId }) {
   }, [indexId]);
 
   return <></>;
+}
+
+/**
+ * Insights Middleware
+ * @returns
+ */
+function InsightsMiddleware() {
+  const { addMiddlewares } = useInstantSearch();
+
+  useLayoutEffect(() => {
+    return addMiddlewares(insightsMiddleware);
+  }, [addMiddlewares]);
+
+  return null;
 }
 
 /**
@@ -75,12 +89,6 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
         indexName={searchConfig.recordsIndex}
         //routing={customRouter}
         routing={routing}
-        insights={{
-          insightsClient: insightsClient,
-          insightsInitParams: {
-            useCookie: true,
-          },
-        }}
       >
         <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
@@ -128,6 +136,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
             <Pagination />
           </div>
         </main>
+        <InsightsMiddleware />
       </InstantSearch>
     </div>
   );
