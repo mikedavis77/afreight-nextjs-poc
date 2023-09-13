@@ -71,6 +71,9 @@ function ProductDetailPage({ hit }) {
             </Carousel>
           </div>
           <div className="pdp-hit-type">
+            <span>{hit.averageRating}</span>
+          </div>
+          <div className="pdp-hit-type">
             <span>{hit.invType} ({hit.attributes['Color Family']})</span>
           </div>
           <p className='product-actions'>

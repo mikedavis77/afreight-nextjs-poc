@@ -115,7 +115,7 @@ nav {
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
-    transform: scale(.8);
+    transform: scale(0.8);
     transform-origin: top right;
     span {
       margin: 10px;
@@ -128,8 +128,12 @@ nav {
   }
   .as-reviews-widgets {
     list-style-type: none;
-    transform: scale(0.8);
-    transform-origin: top left;
+    li {
+      transform: scale(0.8);
+      transform-origin: top left;
+      margin-bottom: 10px;
+      margin-top: 5px;
+    }
   }
 
   .results {
