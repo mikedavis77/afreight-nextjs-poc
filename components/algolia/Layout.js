@@ -20,6 +20,15 @@ const Layout = ({ children }) => {
           <main>{children}</main>
         </div>
       </div>
+      <footer>
+        <div>
+          See{' '}
+          <a className='underline' href="https://github.com/jscontreras/nextjs-algolia-dual">
+            source code
+          </a>{' '}
+          on GitHub
+        </div>
+      </footer>
     </div>
   );
 };

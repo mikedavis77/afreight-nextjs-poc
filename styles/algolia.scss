@@ -80,7 +80,7 @@ nav {
 }
 
 .search-is {
-  padding: 40px 20px;
+  padding: 40px 20px 0;
   border: 1px solid #aaa;
   position: relative;
   margin-top: 20px;
@@ -328,6 +328,7 @@ nav {
   align-items: stretch;
   width: calc(100% - 10px);
   padding: 5px;
+  min-height: calc(100vh - 210px);
 }
 .search-bar {
   display: flex;
