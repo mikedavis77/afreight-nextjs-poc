@@ -1,6 +1,7 @@
 import { getInfoForAfterEvents, insightsClient, searchClient, searchConfig } from "../../../lib/algoliaConfig";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import Rating from "../../../components/algolia/Rating";
 
 export async function getServerSideProps({ query }) {
   const { products } = query;
@@ -71,10 +72,10 @@ function ProductDetailPage({ hit }) {
             </Carousel>
           </div>
           <div className="pdp-hit-type">
-            <span>{hit.averageRating}</span>
+            <Rating value={hit.averageRating} />
           </div>
           <div className="pdp-hit-type">
-            <span>{hit.invType} ({hit.attributes['Color Family']})</span>
+            <span>{hit.invType} {hit.attributes['Color Family'] ? `(${hit.attributes['Color Family']})` : ""}</span>
           </div>
           <p className='product-actions'>
             <button className="conversion-btn"
