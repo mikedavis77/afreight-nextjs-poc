@@ -31,8 +31,7 @@ function replaceAll(str, search, replacement) {
 export function CategoryPageSuggestions() {
   const {
     items,
-    refine
-  } = useRefinementList({ attribute: "category_page_id" });
+  } = useRefinementList({ attribute: "categoryPageId" });
 
   const finalItems = items.sort((a, b) => {
     const compare = countOccurrences(b.value, ' > ') - countOccurrences(a.value, ' > ');

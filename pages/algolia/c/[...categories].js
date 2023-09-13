@@ -50,7 +50,7 @@ export async function getServerSideProps({ req, query }) {
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const { categories } = query;
   const categoryPageIdFilter = categories.map((str) => (str.charAt(0).toUpperCase() + str.slice(1))).join(" > ");
-  const filters = `category_page_id:'${categoryPageIdFilter}'`;
+  const filters = `categoryPageId:'${categoryPageIdFilter}'`;
   const extraSearchParams = { filters: filters };
   const serverState = await getServerState(<Category serverUrl={serverUrl} extraSearchParams={extraSearchParams} />, { renderToString });
 
