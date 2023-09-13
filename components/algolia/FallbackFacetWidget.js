@@ -27,6 +27,7 @@ export function FallbackFacetWidget(props) {
       <RefinementList {...props} />
     </div>
   }
+  return <></>;
 }
 
 /**
