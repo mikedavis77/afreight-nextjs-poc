@@ -57,20 +57,21 @@ function ProductDetailPage({ hit }) {
             <p>Products data shoudln't come from Algolia. We are using <strong>getObject()</strong> for demo purposes. Don't use this approach in production.</p>
           </div>
           <div>
-            <h1>{hit.name}</h1>
+            <h1>{hit.productName}</h1>
+            <h2>{hit.attributes.brand}</h2>
           </div>
           <div className="pdp-hit-pictures">
             <Carousel showArrows={true} showThumbs={true} axis={"horizontal"} centerMode="false" autoPlay={true} emulateTouch={true} onClickItem={handleClickAfterSearch} onClickThumb={handleClickAfterSearch}>
-              {hit.image_urls.filter(u => u.length ).map((url, index) => (
+              {[hit.stockimage, hit.variantImage].filter(u => u.length ).map((url, index) => (
                 <div key={index}>
                   <img src={url} alt={`Image ${index}`} />
-                  <p className="legend">${hit.price.value}</p>
+                  <p className="legend">${hit.salePrice}</p>
                 </div>
               ))}
             </Carousel>
           </div>
           <div className="pdp-hit-type">
-            <span>{hit.type}</span>
+            <span>{hit.invType} ({hit.attributes['Color Family']})</span>
           </div>
           <p className='product-actions'>
             <button className="conversion-btn"
