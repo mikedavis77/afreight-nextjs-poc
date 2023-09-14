@@ -32,8 +32,8 @@ export function transformDynamicFacets(items, {results}) {
     if (facet.includes('hierarchicalCategories')) {
       return true;
     }
-    return results.disjunctiveFacets.some((facetObj) => {
-      return facet.includes(facetObj.name);
+    return Object.keys(results._rawResults[0].facets).some((facetObj) => {
+      return facet.includes(facetObj);
     })
 
   });
