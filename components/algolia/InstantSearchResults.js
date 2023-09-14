@@ -54,38 +54,13 @@ function InsightsMiddleware() {
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
 export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
-  // Adding a Search Proxy to make sure only tagged requests are being executed
-  // https://www.algolia.com/doc/guides/building-search-ui/going-further/conditional-requests/js/
-  const searchClientMod = {
-    ...searchClient,
-    search(requests) {
-      return new Promise((resolve, reject) => {
-        // All requests should have clickAnalytics at this point
-        if (requests[0].params && requests[0].params.analyticsTags) {
-          return searchClient.search(requests).then((res) => {
-            console.log('****** [Moment Resolving Search Client]')
-            resolve(res);
-          });
-        } else {
-          return {
-            results: {
-              hits: []
-            }
-          }
-        }
-
-      });
-
-    },
-  };
-
   return (
     <div className="search-is">
       <span className="search-is__app-id">
         {`<InstantSearch App> (${searchConfig.recordsIndex})`}{" "}
       </span>
       <InstantSearch
-        searchClient={searchClientMod}
+        searchClient={searchClient}
         indexName={searchConfig.recordsIndex}
         routing={routing}
       >
