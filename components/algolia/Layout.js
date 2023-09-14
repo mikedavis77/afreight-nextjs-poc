@@ -9,9 +9,12 @@ import { AutocompleteSearchBar } from "./AutocompleteSearchBar";
 const Layout = ({ children }) => {
   return (
     <div className="main_container">
-      <Link href="/" className="home-link">
-        {"⌂ Home"}
-      </Link>
+      <div className="top-header">
+        <Link href="/" className="home-link">
+          {"⌂ Home"}
+        </Link>
+        <button>GEO LOCATION</button>
+      </div>
       <header>
         <AutocompleteSearchBar />
       </header>

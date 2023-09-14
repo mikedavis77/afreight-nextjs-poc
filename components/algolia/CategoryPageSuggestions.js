@@ -36,7 +36,7 @@ export function CategoryPageSuggestions() {
   const finalItems = items.sort((a, b) => {
     const compare = countOccurrences(b.value, ' > ') - countOccurrences(a.value, ' > ');
     return compare;
-  }).slice(0, 5);
+  }).slice(0, 4);
 
   // return (<div className="category-pages-btn">
   //   {finalItems.map((item) => {

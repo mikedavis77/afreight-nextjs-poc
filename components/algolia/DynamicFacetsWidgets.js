@@ -27,8 +27,18 @@ export function FallbackFacetWidget(props) {
  * Use this function to modify the way in which your facets are rendered
  * (For exmaple removing empty facets)
  */
-export function transformDynamicFacets(items, props) {
-  return items;
+export function transformDynamicFacets(items, {results}) {
+  const filteredFacets = items.filter(facet => {
+    if (facet.includes('hierarchicalCategories')) {
+      return true;
+    }
+    return results.disjunctiveFacets.some((facetObj) => {
+      return facet.includes(facetObj.name);
+    })
+
+  });
+
+  return filteredFacets;
 }
 
 /**

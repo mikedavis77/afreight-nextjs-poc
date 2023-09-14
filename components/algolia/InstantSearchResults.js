@@ -1,4 +1,4 @@
-import { useLayoutEffect, useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useInstantSearch, useSearchBox } from "react-instantsearch";
 import {
   Hits,
@@ -43,7 +43,7 @@ function CustomSearchBox({ indexId }) {
 function InsightsMiddleware() {
   const { addMiddlewares } = useInstantSearch();
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     return addMiddlewares(insightsMiddleware);
   }, [addMiddlewares]);
 
@@ -87,7 +87,6 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
       <InstantSearch
         searchClient={searchClientMod}
         indexName={searchConfig.recordsIndex}
-        //routing={customRouter}
         routing={routing}
       >
         <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} />

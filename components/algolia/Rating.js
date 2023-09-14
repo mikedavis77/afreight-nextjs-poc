@@ -2,7 +2,6 @@ import React from 'react';
 
 function Rating({ value }) {
   const stars = Array.from({ length: 5 }, (_, index) => {
-    console.log('value', value, index)
     const isFilled = index < Math.trunc(value);
     return (
       <svg
