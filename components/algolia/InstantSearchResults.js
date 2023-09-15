@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useInstantSearch, useSearchBox } from "react-instantsearch";
 import {
   Hits,
@@ -16,6 +16,7 @@ import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
 import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./DynamicFacetsWidgets";
+import { SearchContext } from "./Layout";
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
@@ -54,6 +55,10 @@ function InsightsMiddleware() {
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
 export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
+  // Obtain GeoLocation from website
+  const { selectedGeo, geoLocationRadius } = useContext(SearchContext);
+
+  //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}
   return (
     <div className="search-is">
       <span className="search-is__app-id">
@@ -64,7 +69,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
         indexName={searchConfig.recordsIndex}
         routing={routing}
       >
-        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} />
+        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <CategoryPageSuggestions router={routing} />
         <main>
