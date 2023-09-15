@@ -3,7 +3,7 @@ import {
   getAlgoliaResults,
 } from "@algolia/autocomplete-js";
 
-import React, { createElement, Fragment, useEffect, useRef } from 'react';
+import React, { createElement, Fragment, useContext, useEffect, useRef } from 'react';
 import { createLocalStorageRecentSearchesPlugin } from "@algolia/autocomplete-plugin-recent-searches";
 import { createQuerySuggestionsPlugin } from "@algolia/autocomplete-plugin-query-suggestions";
 import "@algolia/autocomplete-theme-classic";
@@ -13,6 +13,7 @@ import { getQueryParam, updateUrlParameter } from "../../lib/common";
 import { createRoot } from 'react-dom/client';
 import { searchConfig, insightsClient, searchClient, pubsub, QUERY_UPDATE_EVT } from "../../lib/algoliaConfig";
 import { useRouter } from "next/router";
+import { SearchContext } from "./Layout";
 
 let router = [];
 
@@ -54,6 +55,8 @@ const autocompleteSubmitHandler = (state) => {
  */
 export function AutocompleteSearchBar() {
   router = useRouter();
+  const { selectedGeo } = useContext(SearchContext);
+
   // Load default catalog
   const containerRef = useRef(null);
   const panelRootRef = useRef(null);
@@ -125,7 +128,9 @@ export function AutocompleteSearchBar() {
                     query,
                     params: {
                       hitsPerPage: 3,
-                      analyticsTags: ['web-autocomplete']
+                      analyticsTags: ['web-autocomplete'],
+                      aroundLatLng:`${selectedGeo.lat}, ${selectedGeo.long}`,
+                      aroundRadius: 'all',
                     },
                   },
                 ],

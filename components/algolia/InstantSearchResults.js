@@ -56,7 +56,7 @@ function InsightsMiddleware() {
  */
 export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
   // Obtain GeoLocation from website
-  const { selectedGeo, geoLocationRadius } = useContext(SearchContext);
+  const { selectedGeo } = useContext(SearchContext);
 
   //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}
   return (
@@ -69,7 +69,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
         indexName={searchConfig.recordsIndex}
         routing={routing}
       >
-        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} />
+        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} getRankingInfo={true} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <CategoryPageSuggestions router={routing} />
         <main>

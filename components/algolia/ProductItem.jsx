@@ -1,8 +1,12 @@
+import { useContext } from "react";
 import { searchConfig, storeInfoForAfterEvents } from "../../lib/algoliaConfig";
 import singletonRouter from 'next/router';
+import { SearchContext } from "./Layout";
+import { calculateDistance } from "../../lib/common";
 
-export function ProductItem({ hit, components, navigator }) {
-
+export function ProductItem({ hit, components }) {
+  const { selectedGeo } = useContext(SearchContext);
+  const distance = calculateDistance(selectedGeo.lat, selectedGeo.long, hit._geoloc.lat, hit._geoloc.lng);
   return (
     <div className="aa-ItemWrapper" onClick={() => {
       storeInfoForAfterEvents({
@@ -23,9 +27,8 @@ export function ProductItem({ hit, components, navigator }) {
           <div className="aa-ItemContentTitle">
             <components.Highlight hit={hit} attribute="productName" />
           </div>
-          <div className="aa-ItemContentDescription">
-            By <strong>{hit.attributes.brand}</strong> in{' '}
-            {/* <strong>{hit.categories[0]}</strong> */}
+          <div className="hit-description">
+            <span> Distance: {parseFloat(distance).toFixed(2)} mi {distance * 1609 < searchConfig.geoLocationRadius ? ' [NearBy]' : ''}</span>
           </div>
         </div>
       </div>

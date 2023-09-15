@@ -16,6 +16,7 @@ export const HitComponent = ({ hit, sendEvent }) => {
     }
   }
   return (<div className="hit">
+    {hit._rankingInfo.geoDistance < searchConfig.geoLocationRadius  && <span className="nearby-flag">Near by</span>}
     <div className="hit-picture" onClick={() => handleObjectClick(hit)}>
       <img src={`${hit.stockimage}`} alt={hit.produtName} width={100} height={100} />
     </div>
@@ -32,6 +33,9 @@ export const HitComponent = ({ hit, sendEvent }) => {
       </div>
       <div className="hit-type">
         <span>Condition: {hit.invType}</span>
+      </div>
+      <div className="hit-description">
+        <span> Distance: {parseFloat(hit._rankingInfo.geoDistance / 1609).toFixed(2)} mi</span>
       </div>
       <div className="hit-description">
         <span> ${hit.salePrice}</span>
