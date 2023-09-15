@@ -18,8 +18,9 @@ export function ProductItem({ hit, components }) {
       singletonRouter.push(`${searchConfig.productPdpPathPrefix}/${hit.slug}/${hit.objectID}`);
     }}>
       <div className="aa-ItemContent">
-        <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop">
+        <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop hit">
           <img src={hit.stockimage} alt={hit.productName} width="40" height="40" />
+          {distance * 1609 < searchConfig.geoLocationRadius && <span className="nearby-flag">Near by</span>}
         </div>
 
         <div className="aa-ItemContentBody">
@@ -28,7 +29,7 @@ export function ProductItem({ hit, components }) {
             <components.Highlight hit={hit} attribute="productName" />
           </div>
           <div className="hit-description">
-            <span> Distance: {parseFloat(distance).toFixed(2)} mi {distance * 1609 < searchConfig.geoLocationRadius ? ' [NearBy]' : ''}</span>
+            <span> Distance: {parseFloat(distance).toFixed(2)} mi</span>
           </div>
         </div>
       </div>
