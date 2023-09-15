@@ -18,8 +18,8 @@ export default function Home() {
         </Link>
       </li>
       <li>
-        <Link href="http://localhost:3000/algolia/c/mattresses/shop-by-size/shop-all-mattresses">
-          {'Mattresses > Shop-by-size > Shop-all-mattresses'}
+        <Link href="http://localhost:3000/algolia/c/appliances/refrigerators-freezers/french-door-refrigerators">
+          {'Appliances > Refrigerators-freezers > French-door-refrigerators'}
         </Link>
       </li>
     </ol>
