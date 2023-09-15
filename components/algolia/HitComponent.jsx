@@ -2,8 +2,18 @@ import { Highlight } from "react-instantsearch";
 import { searchConfig, storeInfoForAfterEvents } from "../../lib/algoliaConfig";
 import singletonRouter from 'next/router';
 import Rating from "./Rating";
+import { useContext } from "react";
+import { SearchContext } from "./Layout";
+import { calculateDistance } from "../../lib/common";
 
+/**
+ * Hit component used to render product cards (InstantSearch).
+ * @param {*} param0
+ * @returns
+ */
 export const HitComponent = ({ hit, sendEvent }) => {
+  const { selectedGeo } = useContext(SearchContext);
+  const distance = calculateDistance(selectedGeo.lat, selectedGeo.long, hit._geoloc.lat, hit._geoloc.lng);
   function handleObjectClick(item) {
     if (typeof document !== 'undefined') {
       storeInfoForAfterEvents({
@@ -16,7 +26,7 @@ export const HitComponent = ({ hit, sendEvent }) => {
     }
   }
   return (<div className="hit">
-    {hit._rankingInfo.geoDistance < searchConfig.geoLocationRadius  && <span className="nearby-flag">Near by</span>}
+    {distance * 1609 < searchConfig.geoLocationRadius  && <span className="nearby-flag">Near by</span>}
     <div className="hit-picture" onClick={() => handleObjectClick(hit)}>
       <img src={`${hit.stockimage}`} alt={hit.produtName} width={100} height={100} />
     </div>
@@ -35,7 +45,7 @@ export const HitComponent = ({ hit, sendEvent }) => {
         <span>Condition: {hit.invType}</span>
       </div>
       <div className="hit-description">
-        <span> Distance: {parseFloat(hit._rankingInfo.geoDistance / 1609).toFixed(2)} mi</span>
+        <span> Distance: {parseFloat(distance).toFixed(2)} mi</span>
       </div>
       <div className="hit-description">
         <span> ${hit.salePrice}</span>

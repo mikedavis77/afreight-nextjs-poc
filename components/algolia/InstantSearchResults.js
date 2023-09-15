@@ -69,7 +69,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
         indexName={searchConfig.recordsIndex}
         routing={routing}
       >
-        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} getRankingInfo={true} />
+        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <CategoryPageSuggestions router={routing} />
         <main>
