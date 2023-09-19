@@ -80,6 +80,15 @@ export function AutocompleteSearchBar() {
         },
       };
     },
+    // Showing Categories
+    categoryAttribute: [
+      'qa_ProductCatalog',
+      'facets',
+      'exact_matches',
+      'hierarchicalCategories.lvl1',
+    ],
+    itemsWithCategories: 3,
+    categoriesPerItem: 2,
   });
 
   // This Plugin has more options in case you want to forward events to GA4 etc.
