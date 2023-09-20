@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo } from "react";
-import { ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useInstantSearch, useSearchBox } from "react-instantsearch";
+import { Breadcrumb, ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useInstantSearch, useSearchBox } from "react-instantsearch";
 import {
   Hits,
   Configure,
@@ -64,11 +64,27 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
       <span className="search-is__app-id">
         {`<InstantSearch App> (${searchConfig.recordsIndex})`}{" "}
       </span>
+
       <InstantSearch
         searchClient={searchClient}
         indexName={searchConfig.recordsIndex}
         routing={routing}
       >
+        <Breadcrumb
+
+          attributes={[
+
+            'hierarchicalCategories.lvl0',
+
+            'hierarchicalCategories.lvl1',
+
+            'hierarchicalCategories.lvl2',
+
+            'hierarchicalCategories.lvl3',
+
+          ]}
+
+        />
         <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <CategoryPageSuggestions router={routing} />

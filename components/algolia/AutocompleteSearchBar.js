@@ -171,7 +171,7 @@ export function AutocompleteSearchBar() {
                 queries: [
                   {
                     indexName: searchConfig.recordsIndex,
-                    facet: 'categoryPageId',
+                    facet: 'hierarchicalCategories.lvl1',
                     params: {
                       facetQuery: query,
                       maxFacetHits: 4,
@@ -197,6 +197,9 @@ export function AutocompleteSearchBar() {
                 );
               },
               item({ item }) {
+                console.log('item', item)
+                // extract the id split(:)
+                // build URL and onClick
                 return (
                   <div>{item.label}</div>
                 );
