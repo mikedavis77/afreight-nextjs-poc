@@ -10,7 +10,7 @@ import { createQuerySuggestionsPlugin } from "@algolia/autocomplete-plugin-query
 import "@algolia/autocomplete-theme-classic";
 import { ProductItem } from "./ProductItem";
 import { createAlgoliaInsightsPlugin } from "@algolia/autocomplete-plugin-algolia-insights";
-import { getQueryParam, updateUrlParameter } from "../../lib/common";
+import { friendlyCategoryName, getQueryParam, updateUrlParameter } from "../../lib/common";
 import { createRoot } from 'react-dom/client';
 import { searchConfig, insightsClient, searchClient, pubsub, QUERY_UPDATE_EVT } from "../../lib/algoliaConfig";
 import { useRouter } from "next/router";
@@ -170,16 +170,22 @@ export function AutocompleteSearchBar() {
                 searchClient,
                 queries: [
                   {
-                    indexName: 'instant_search',
-                    facet: 'hierarchicalCategories.lvl1',
+                    indexName: searchConfig.recordsIndex,
+                    facet: 'categoryPageId',
                     params: {
                       facetQuery: query,
-                      maxFacetHits: 2,
+                      maxFacetHits: 4,
                       analyticsTags: ['web-autocomplete'],
                       ruleContexts: ['web-autocomplete'],
                     },
                   },
                 ],
+                transformResponse({facetHits}) {
+                  // Making it easier to read.
+                  console.log('facetHits', facetHits)
+                  return facetHits.map(fhArray => {
+                    return fhArray.map(fh => ({ ...fh, label:friendlyCategoryName(fh.label)}))});
+                }
               });
             },
             templates: {
