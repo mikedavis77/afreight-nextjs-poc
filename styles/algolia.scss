@@ -380,6 +380,15 @@ nav {
   position: relative;
 }
 
+.aa-PanelLayout {
+  display: flex;
+  flex-wrap: wrap;
+  .aa-Source {
+    flex: 0 0 50%;
+    box-sizing: border-box;
+    padding: 10px;
+  }
+}
 /* Autocomplete ENDS */
 
 .category-pages-btn {

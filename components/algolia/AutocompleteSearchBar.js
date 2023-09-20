@@ -1,5 +1,6 @@
 import {
   autocomplete,
+  getAlgoliaFacets,
   getAlgoliaResults,
 } from "@algolia/autocomplete-js";
 
@@ -138,6 +139,7 @@ export function AutocompleteSearchBar() {
                     params: {
                       hitsPerPage: 3,
                       analyticsTags: ['web-autocomplete'],
+                      ruleContexts: ['web-autocomplete'],
                       aroundLatLng:`${selectedGeo.lat}, ${selectedGeo.long}`,
                       aroundRadius: 'all',
                     },
@@ -160,6 +162,42 @@ export function AutocompleteSearchBar() {
               },
             },
           },
+          // Categories
+          {
+            sourceId: searchConfig.recordsIndex,
+            getItems({ query }) {
+              return getAlgoliaFacets({
+                searchClient,
+                queries: [
+                  {
+                    indexName: 'instant_search',
+                    facet: 'hierarchicalCategories.lvl1',
+                    params: {
+                      facetQuery: query,
+                      maxFacetHits: 2,
+                      analyticsTags: ['web-autocomplete'],
+                      ruleContexts: ['web-autocomplete'],
+                    },
+                  },
+                ],
+              });
+            },
+            templates: {
+              header() {
+                return (
+                  <Fragment>
+                    <span className="aa-SourceHeaderTitle">Products Categories</span>
+                    <div className="aa-SourceHeaderLine" />
+                  </Fragment>
+                );
+              },
+              item({ item }) {
+                return (
+                  <div>{item.label}</div>
+                );
+              }
+            }
+          }
         ];
       },
     });
