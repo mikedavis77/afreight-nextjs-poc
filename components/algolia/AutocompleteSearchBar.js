@@ -181,8 +181,7 @@ export function AutocompleteSearchBar() {
                   },
                 ],
                 transformResponse({facetHits}) {
-                  // Making it easier to read.
-                  console.log('facetHits', facetHits)
+                  // Making it easier to read
                   return facetHits.map(fhArray => {
                     return fhArray.map(fh => ({ ...fh, label:friendlyCategoryName(fh.label)}))});
                 }
