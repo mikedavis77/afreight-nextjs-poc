@@ -54,10 +54,13 @@ function InsightsMiddleware() {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
+export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo=false }) => {
   // Obtain GeoLocation from website
   const { selectedGeo } = useContext(SearchContext);
-
+  let geoOverrides = {aroundLatLng:`${selectedGeo.lat}, ${selectedGeo.long}`, aroundRadius :'all'};
+  if (skipGeo) {
+    geoOverrides = false;
+  }
   //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}
   return (
     <div className="search-is">
@@ -71,21 +74,14 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {} }) => {
         routing={routing}
       >
         <Breadcrumb
-
           attributes={[
-
             'hierarchicalCategories.lvl0',
-
             'hierarchicalCategories.lvl1',
-
             'hierarchicalCategories.lvl2',
-
             'hierarchicalCategories.lvl3',
-
           ]}
-
         />
-        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`} aroundRadius={'all'} />
+        <Configure {...extraSearchParams} hitsPerPage={24} analyticsTags={['web-search']} {...geoOverrides} />
         <CustomSearchBox indexId={searchConfig.recordsIndex} />
         <CategoryPageSuggestions router={routing} />
         <main>

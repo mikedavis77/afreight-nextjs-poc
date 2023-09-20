@@ -22,6 +22,11 @@ export default function Home() {
           {'Appliances > Refrigerators-freezers > French-door-refrigerators'}
         </Link>
       </li>
+      <li>
+        <Link href="http://localhost:3000/algolia/plp/thematic/my-marketing-page-1">
+          {'my-marketing-page-1 (Thematic Page)'}
+        </Link>
+      </li>
     </ol>
   </div>
 }
