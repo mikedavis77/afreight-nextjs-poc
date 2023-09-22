@@ -23,7 +23,7 @@ export default function Home() {
         </Link>
       </li>
       <li>
-        <Link href="/localhost:3000/algolia/plp/thematic/my-marketing-page-1">
+        <Link href="/algolia/plp/thematic/my-marketing-page-1">
           {'my-marketing-page-1 (Thematic Page)'}
         </Link>
       </li>
