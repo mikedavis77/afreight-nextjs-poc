@@ -53,6 +53,27 @@ function InsightsMiddleware() {
 }
 
 /**
+ * Returns the hierarchical menu
+ * @param {*} extraSearchParams
+ * @returns
+ */
+function calculateRoot(extraSearchParams) {
+  const filter = extraSearchParams.filters ? extraSearchParams.filters.replace('categoryPageId:', '').replace(/'/g, '') : null;
+  if (filter) {
+    const parts = filter.split(' > ');
+    if (parts.length > 1) {
+      if (parts.length == 4) {
+        parts.pop();
+      }
+      const res = parts.join(' > ').toLowerCase();
+      return res;
+    }
+    return filter.toLowerCase();
+  }
+  return filter;
+}
+
+/**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
 export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo = false }) => {
@@ -62,6 +83,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
   if (skipGeo) {
     geoOverrides = false;
   }
+
   //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}
   return (
     <div className="search-is">
@@ -97,6 +119,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
                 ]}
                 separator=" > "
                 showMore={true}
+                rootPath={calculateRoot(extraSearchParams)}
               />
               <FacetWidgetPanel attribute={"salePrice"}>
                 <RangeInput attribute="salePrice" />

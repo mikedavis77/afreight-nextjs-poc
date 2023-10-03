@@ -36,7 +36,7 @@ export function CategoryPageSuggestions() {
   const finalItems = items.sort((a, b) => {
     const compare = countOccurrences(b.value, ' > ') - countOccurrences(a.value, ' > ');
     return compare;
-  }).slice(0, 4);
+  }).slice(0, 2);
 
   // return (<div className="category-pages-btn">
   //   {finalItems.map((item) => {
@@ -48,6 +48,7 @@ export function CategoryPageSuggestions() {
   // </div>)
 
   return (<div className="category-pages-btn">
+    <span>Suggested category pages:</span>
     {finalItems.map((item) => {
       const url = `${searchConfig.categoryPlpPathPrefix}/${replaceAll(item.value, ' > ', '/')}`;
       return <Link key={item.value} href={url}><button key={item.value}>{item.label}</button></Link>

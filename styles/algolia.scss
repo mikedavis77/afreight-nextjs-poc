@@ -404,6 +404,8 @@ nav {
   flex-wrap: wrap;
   justify-content: flex-start;
   align-content: flex-start;
+  align-items: baseline;
+
   a {
     display: inline-block;
     font-size: 0.8em;
