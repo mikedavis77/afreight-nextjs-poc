@@ -50,7 +50,10 @@ export const HitComponent = ({ hit, sendEvent }) => {
       <div className="hit-description">
         <span> ${hit.salePrice}</span>
       </div>
+      <div className="hit-description">
+      </div>
       <p className='product-actions'>
+        <button className="variants-btn" onClick={() => console.log(hit._variants)}>{`Variants (${hit._variants.length})`}</button>
         <button className="conversion-btn"
           onClick={(ev) => {
             ev.preventDefault();

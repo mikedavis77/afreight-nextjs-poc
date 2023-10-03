@@ -188,7 +188,7 @@ nav {
   .ais-Hits-item {
     flex-basis: 30% !important;
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 70px;
     margin-bottom: 20px;
     max-width: 240px;
     min-width: 220px;
@@ -209,7 +209,7 @@ nav {
 
   .product-actions {
     position: absolute;
-    bottom: 15px;
+    bottom: 50px;
     width: fit-content;
     text-align: center;
     width: 130px;
@@ -217,6 +217,10 @@ nav {
 
     .conversion-btn {
       background-color: rgba(96, 185, 225, 0.671);
+    }
+    .variants-btn {
+      background-color: rgb(239, 196, 89);
+      margin-bottom: 5px;
     }
   }
 
