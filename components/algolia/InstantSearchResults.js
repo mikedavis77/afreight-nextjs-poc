@@ -114,12 +114,12 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
           </div>
           <div className="results">
             <div className="ais-extra-filters">
+              <div className="ais-near-by">
+                <NearBytoggle label="Near By: " />
+              </div>
               <div className="ais-sort-by">
                 <span>Sort By:</span>
                 <SortBy items={searchConfig.sortByIndices} />
-              </div>
-              <div className="ais-near-by">
-                <NearBytoggle label="Near By Only" />
               </div>
             </div>
             <div className="refinements-container">

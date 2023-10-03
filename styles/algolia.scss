@@ -406,7 +406,7 @@ nav {
     margin-left: 2px;
     button {
       margin: 2px 0;
-      background-color: rgba(106, 205, 225, 0.5);
+      background-color: rgba(106, 106, 106, 0.05);
     }
   }
 }
@@ -416,14 +416,16 @@ nav {
 }
 
 /* Toggle Styles */
+.ais-near-by {
+  transform-origin: center;
+  transform: scale(0.8);
+}
 .toggle-switch {
   position: relative;
   width: 75px;
   display: inline-block;
   text-align: left;
   top: 8px;
-  transform-origin: bottom;
-  transform: scale(0.7);
 }
 .checkbox {
   display: none;
@@ -434,6 +436,8 @@ nav {
   cursor: pointer;
   border: 0 solid #bbb;
   border-radius: 20px;
+  transform-origin: bottom;
+  transform: scale(0.8);
 }
 .inner {
   display: block;
