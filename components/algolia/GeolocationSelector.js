@@ -10,8 +10,8 @@ import { searchConfig } from "../../lib/algoliaConfig";
 export function GeolocationSelector() {
   // Get context
   const { selectedGeo, setSelectedGeo } = useContext(SearchContext);
-
   const [selectedOption, setSelectedOption] = useState(selectedGeo);
+
   // Handle selection
   const handleSelectChange = (event) => {
     setSelectedGeo(searchConfig.geoLocationOptions[event.target.value]);

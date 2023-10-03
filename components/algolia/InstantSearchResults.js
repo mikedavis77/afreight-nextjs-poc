@@ -17,6 +17,7 @@ import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
 import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./DynamicFacetsWidgets";
 import { SearchContext } from "./Layout";
+import NearBytoggle from "./NearbyToggle";
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
@@ -54,10 +55,10 @@ function InsightsMiddleware() {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo=false }) => {
+export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo = false }) => {
   // Obtain GeoLocation from website
-  const { selectedGeo } = useContext(SearchContext);
-  let geoOverrides = {aroundLatLng:`${selectedGeo.lat}, ${selectedGeo.long}`, aroundRadius :'all'};
+  const { selectedGeo, geoLocationRadius } = useContext(SearchContext);
+  let geoOverrides = { aroundLatLng: `${selectedGeo.lat}, ${selectedGeo.long}`, aroundRadius: geoLocationRadius };
   if (skipGeo) {
     geoOverrides = false;
   }
@@ -112,10 +113,15 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo=
             </DynamicWidgets>
           </div>
           <div className="results">
-          <div className="ais-sort-by">
-            <span>Sort By:</span>
-            <SortBy items={searchConfig.sortByIndices} />
-          </div>
+            <div className="ais-extra-filters">
+              <div className="ais-sort-by">
+                <span>Sort By:</span>
+                <SortBy items={searchConfig.sortByIndices} />
+              </div>
+              <div className="ais-near-by">
+                <NearBytoggle label="Near By Only" />
+              </div>
+            </div>
             <div className="refinements-container">
               <CurrentRefinements transformItems={(items) => {
                 return items.map((item) => {

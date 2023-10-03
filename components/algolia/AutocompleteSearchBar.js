@@ -124,6 +124,9 @@ export function AutocompleteSearchBar() {
         recentSearchesPlugin,
         algoliaInsightsPlugin,
       ],
+      onStateChange({state}) {
+        console.log('Autocomplete:state:isOpen', state.isOpen);
+      },
       getSources({ query }) {
         return [
           {
@@ -197,7 +200,6 @@ export function AutocompleteSearchBar() {
                 );
               },
               item({ item }) {
-                console.log('item', item)
                 // extract the id split(:)
                 // build URL and onClick
                 return (
@@ -209,6 +211,7 @@ export function AutocompleteSearchBar() {
         ];
       },
     });
+    window.autocompleteInstance = autocompleteInstance;
     // Set the query value if available in url (doesn't trigger a search)
     if (getQueryParam(`${searchConfig.recordsIndex}[query]`) !== "") {
       autocompleteInstance.setQuery(getQueryParam(`${searchConfig.recordsIndex}[query]`));

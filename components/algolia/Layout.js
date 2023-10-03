@@ -14,11 +14,10 @@ export const SearchContext = createContext({ geoLocationRadius: searchConfig.geo
 const Layout = ({ children }) => {
   // Store Geo Location
   const [selectedGeo, setSelectedGeo] = useState(searchConfig.geoLocationOptions[0])
-
+  const [geoLocationRadius, setGeoLocationRadius] = useState(searchConfig.geoLocationRadius);
   // geoLocation
-  const geoLocationRadius = searchConfig.geoLocationRadius;
   return (
-    <SearchContext.Provider value={{geoLocationRadius, selectedGeo, setSelectedGeo}} >
+    <SearchContext.Provider value={{ geoLocationRadius, selectedGeo, setSelectedGeo, setGeoLocationRadius }} >
       <div className="main_container">
         <div className="top-header">
           <Link href="/" className="home-link">
