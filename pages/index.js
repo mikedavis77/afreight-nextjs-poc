@@ -18,8 +18,8 @@ export default function Home() {
         </Link>
       </li>
       <li>
-        <Link href="/algolia/c/appliances/refrigerators-freezers/french-door-refrigerators">
-          {'Appliances > Refrigerators-freezers > French-door-refrigerators'}
+        <Link href="/algolia/c/appliances/refrigerators-freezers">
+          {'Appliances > Refrigerators-freezers'}
         </Link>
       </li>
       <li>
