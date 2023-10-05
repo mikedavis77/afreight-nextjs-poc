@@ -5,22 +5,19 @@ import { InstantSearchResults } from "../../../components/algolia/InstantSearchR
 import singletonRouter from 'next/router';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 
-// const routerBase = history();
-// const customRouter = {
-//   ...routerBase,
-//   createUrl(routeState) {
-//     const mapping = routerBase.createURL(routeState);
-//     console.log('mapping', mapping)
-//     mapping.replace('query', 'term');
-//     return mapping;
-//   },
-//   parseUrl(params) {
-
-//     console.log('params', params)
-//     const url = routerBase.parseUrl(params);
-//     return url;
-//   }
-// }
+/**
+ * Router Options
+ */
+const routerOptions = {
+  createURL({ qsModule, location, routeState }) {
+    const { origin, pathname, hash } = location;
+    const queryString = qsModule.stringify(routeState);
+    return `${origin}${pathname}?${queryString}${hash}`;
+  },
+  parseURL({ qsModule, location }) {
+    return qsModule.parse(location.search.slice(1));
+  },
+}
 
 /**
  * Main Page Prototype.
@@ -33,7 +30,7 @@ export default function Category({ serverState, serverUrl, extraSearchParams }) 
         <h2 className="category-title"> Category Page: {`[${extraSearchParams.filters}] `}</h2>
       </header>
       <InstantSearchResults
-        routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl }) }}
+        routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl, routerOptions:routerOptions }) }}
         extraSearchParams={extraSearchParams}
       />
     </InstantSearchSSRProvider>
