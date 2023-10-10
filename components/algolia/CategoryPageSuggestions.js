@@ -38,15 +38,6 @@ export function CategoryPageSuggestions() {
     return compare;
   }).slice(0, 2);
 
-  // return (<div className="category-pages-btn">
-  //   {finalItems.map((item) => {
-  //     const url = `/algolia/c/${replaceAll(item.value, ' > ', '/')}`;
-  //     return <li key={item.value} href={url}><button key={item.value} onClick={()=> {
-  //       refine(item.value);
-  //     }}>{item.label}</button></li>
-  //   })}
-  // </div>)
-
   return (<div className="category-pages-btn">
     <span>Suggested category pages:</span>
     {finalItems.map((item) => {

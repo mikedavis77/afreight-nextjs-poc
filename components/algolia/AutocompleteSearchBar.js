@@ -205,7 +205,7 @@ export function AutocompleteSearchBar() {
                 // extract the id split(:)
                 const parts = item.label.split(' : ');
                 // build URL and onClick
-                const url = searchConfig.categoryPlpPathPrefix + '/' + parts[0].replace(/ > /g, '/').toLowerCase().replace(/\s/g, '-') + '/' + parts[1];
+                const url = searchConfig.categoryPlpPathPrefix + '/' + parts[0].replace(/ > /g, '/').toLowerCase().replace(/\s/g, '-').replace(/&-/g, '') + '/' + parts[1];
 
                 return (
                   <div><Link href={url}>{friendlyCategoryName(parts[0])}</Link></div>
