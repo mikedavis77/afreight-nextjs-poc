@@ -19,14 +19,14 @@ export function ProductItem({ hit, components }) {
     }}>
       <div className="aa-ItemContent">
         <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop hit">
-          <img src={hit.stockimage} alt={hit.productName} width="40" height="40" />
+          <img src={hit.stockimage} alt={hit.productTitle} width="40" height="40" />
           {distance * 1609 < searchConfig.geoLocationRadius && <span className="nearby-flag">Near by</span>}
         </div>
 
         <div className="aa-ItemContentBody">
           <div className="aa-ItemId">{hit.objectID}</div>
           <div className="aa-ItemContentTitle">
-            <components.Highlight hit={hit} attribute="productName" />
+            <components.Highlight hit={hit} attribute="productTitle" />
           </div>
           <div className="hit-description">
             <span> Distance: {parseFloat(distance).toFixed(2)} mi</span>

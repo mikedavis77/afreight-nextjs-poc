@@ -7,6 +7,51 @@ import { SearchContext } from "./Layout";
 import { calculateDistance } from "../../lib/common";
 
 /**
+ * Shows the variants info in the console.
+ * @param {*} variants
+ */
+function extractVariantsInfo(variants, hit) {
+  // Find corrresponding tab
+  if (hit.boxCondition === "Open-Box") {
+    const newVariant = variants.find(variant => {
+      return variant.boxCondition === "New";
+    })
+    if (newVariant) {
+      console.log('ProductTab(New)', newVariant);
+    } else {
+      console.log('No ProductTab(New)');
+    }
+  } else {
+    const newVariant = variants.find(variant => {
+      return variant.boxCondition === "Open-Box";
+    })
+    if (newVariant) {
+      console.log('ProductTab(Open-Box))', newVariant);
+    } else {
+      console.log('No ProductTab(Open-Box)');
+    }
+  }
+  // Extract colors
+  let colors = {};
+
+  if (hit.colorCodeMap) {
+    colors = {...hit.colorCodeMap}
+  }
+  variants.forEach(variant => {
+    if(variant.colorCodeMap) {
+      Object.keys(variant.colorCodeMap).forEach(color => {
+        colors[color] = {
+          color: color,
+          colorCode: variant.colorCodeMap[color],
+          url: variant.productUrl
+        }
+      })
+    }
+  });
+  console.log('Colors', colors)
+}
+
+/**
  * Hit component used to render product cards (InstantSearch).
  * @param {*} param0
  * @returns
@@ -48,12 +93,13 @@ export const HitComponent = ({ hit, sendEvent }) => {
         <span> Distance: {parseFloat(distance).toFixed(2)} mi</span>
       </div>
       <div className="hit-description">
-        <span> ${hit.salePrice}</span>
+        <span> ${`${hit.currPrice.dollars}.${hit.currPrice.cents}`}</span>
       </div>
       <div className="hit-description">
       </div>
       <p className='product-actions'>
-        <button className="variants-btn" onClick={() => console.log(hit._variants)}>{`Variants (${hit._variants.length})`}</button>
+        <button className="variants-btn" onClick={() => extractVariantsInfo(hit._variants, hit)}>{`Variants (${hit._variants.length})`
+        }</button>
         <button className="conversion-btn"
           onClick={(ev) => {
             ev.preventDefault();
