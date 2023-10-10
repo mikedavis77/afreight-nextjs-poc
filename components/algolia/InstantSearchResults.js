@@ -1,5 +1,5 @@
 import { useContext, useEffect, useMemo } from "react";
-import { Breadcrumb, ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useInstantSearch, useSearchBox } from "react-instantsearch";
+import { Breadcrumb, ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useSearchBox } from "react-instantsearch";
 import {
   Hits,
   Configure,
@@ -11,7 +11,7 @@ import {
 import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
-import { QUERY_UPDATE_EVT, insightsMiddleware, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
+import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
@@ -38,19 +38,20 @@ function CustomSearchBox({ indexId }) {
   return <></>;
 }
 
-/**
- * Insights Middleware
- * @returns
- */
-function InsightsMiddleware() {
-  const { addMiddlewares } = useInstantSearch();
+// /**
+//  * Insights Middleware for events propagation.
+//  * @returns
+//  */
+// export function InsightsMiddleware() {
+//   const { addMiddlewares } = useInstantSearch();
 
-  useEffect(() => {
-    return addMiddlewares(insightsMiddleware);
-  }, [addMiddlewares]);
+//   useEffect(() => {
+//     return addMiddlewares(insightsMiddleware);
+//   }, [addMiddlewares]);
 
-  return null;
-}
+//   return null;
+// }
+
 
 /**
  * Returns the hierarchical menu
@@ -95,6 +96,12 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
         searchClient={searchClient}
         indexName={searchConfig.recordsIndex}
         routing={routing}
+        insights={{
+          insightsClient: insightsClient,
+          insightsInitParams: {
+            useCookie: true,
+          },
+        }}
       >
         <Breadcrumb
           attributes={[
@@ -119,7 +126,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
                 ]}
                 separator=" > "
                 showMore={true}
-                // rootPath={calculateRoot(extraSearchParams)}
+              // rootPath={calculateRoot(extraSearchParams)}
               />
               <FacetWidgetPanel attribute={"currPrice.price"}>
                 <RangeInput attribute="currPrice.price" />
@@ -160,7 +167,6 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
             <Pagination />
           </div>
         </main>
-        <InsightsMiddleware />
       </InstantSearch>
     </div>
   );
