@@ -40,15 +40,22 @@ function extractVariantsInfo(variants, hit) {
   variants.forEach(variant => {
     if(variant.colorCodeMap) {
       Object.keys(variant.colorCodeMap).forEach(color => {
-        colors[color] = {
-          color: color,
-          colorCode: variant.colorCodeMap[color],
-          url: variant.productUrl
+        // preserving order as they come sorted by distance
+        if (!Object.keys(colors).includes(color)) {
+          colors[color] = {
+            color: color,
+            colorCode: variant.colorCodeMap[color],
+            url: variant.productUrl
+          }
         }
       })
     }
   });
-  console.log('Colors', colors)
+  if (Object.keys(colors).length > 1) {
+    console.log('Colors', colors)
+  } else {
+    console.log('No other colors found');
+  }
 }
 
 /**
