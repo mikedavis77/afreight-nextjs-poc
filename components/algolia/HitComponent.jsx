@@ -33,9 +33,18 @@ function extractVariantsInfo(variants, hit) {
   }
   // Extract colors
   let colors = {};
-
+  // Add hit color
   if (hit.colorCodeMap) {
-    colors = {...hit.colorCodeMap}
+    Object.keys(hit.colorCodeMap).forEach(color => {
+      // preserving order as they come sorted by distance
+      if (!Object.keys(colors).includes(color)) {
+        colors[color] = {
+          color: color,
+          colorCode: hit.colorCodeMap[color],
+          url: hit.productUrl
+        }
+      }
+    });
   }
   variants.forEach(variant => {
     if(variant.colorCodeMap) {
