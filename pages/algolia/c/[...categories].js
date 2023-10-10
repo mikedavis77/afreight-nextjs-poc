@@ -46,7 +46,11 @@ export async function getServerSideProps({ req, query }) {
   const protocol = req.headers.referer?.split('://')[0] || 'https';
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const { categories } = query;
-  const categoryPageIdFilter = categories.map((str) => (str.charAt(0).toUpperCase() + str.slice(1))).join(" > ");
+  let categoryPageIdFilter = categories.map((str) => (str.charAt(0).toUpperCase() + str.slice(1)));
+  if (isNaN(categories[categories.lendth - 1])) {
+    categoryPageIdFilter.pop();
+  }
+  categoryPageIdFilter = categoryPageIdFilter.join(" > ");
   const filters = `categoryPageId:'${categoryPageIdFilter}'`;
   const extraSearchParams = { filters: filters };
   const serverState = await getServerState(<Category serverUrl={serverUrl} extraSearchParams={extraSearchParams} />, { renderToString });

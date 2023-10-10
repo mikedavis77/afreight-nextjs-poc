@@ -15,6 +15,7 @@ import { createRoot } from 'react-dom/client';
 import { searchConfig, insightsClient, searchClient, pubsub, QUERY_UPDATE_EVT } from "../../lib/algoliaConfig";
 import { useRouter } from "next/router";
 import { SearchContext } from "./Layout";
+import Link from "next/link";
 
 let router = [];
 
@@ -124,7 +125,7 @@ export function AutocompleteSearchBar() {
         recentSearchesPlugin,
         algoliaInsightsPlugin,
       ],
-      onStateChange({state}) {
+      onStateChange({ state }) {
         console.log('Autocomplete:state:isOpen', state.isOpen);
       },
       getSources({ query }) {
@@ -143,7 +144,7 @@ export function AutocompleteSearchBar() {
                       hitsPerPage: 3,
                       analyticsTags: ['web-autocomplete'],
                       ruleContexts: ['web-autocomplete'],
-                      aroundLatLng:`${selectedGeo.lat}, ${selectedGeo.long}`,
+                      aroundLatLng: `${selectedGeo.lat}, ${selectedGeo.long}`,
                       aroundRadius: 'all',
                     },
                   },
@@ -174,7 +175,7 @@ export function AutocompleteSearchBar() {
                 queries: [
                   {
                     indexName: searchConfig.recordsIndex,
-                    facet: 'hierarchicalCategories.lvl1',
+                    facet: 'suggestedCategoriesLvl1',
                     params: {
                       facetQuery: query,
                       maxFacetHits: 4,
@@ -183,10 +184,11 @@ export function AutocompleteSearchBar() {
                     },
                   },
                 ],
-                transformResponse({facetHits}) {
+                transformResponse({ facetHits }) {
                   // Making it easier to read
                   return facetHits.map(fhArray => {
-                    return fhArray.map(fh => ({ ...fh, label:friendlyCategoryName(fh.label)}))});
+                    return fhArray.map(fh => ({ ...fh, label: friendlyCategoryName(fh.label) }))
+                  });
                 }
               });
             },
@@ -201,9 +203,12 @@ export function AutocompleteSearchBar() {
               },
               item({ item }) {
                 // extract the id split(:)
+                const parts = item.label.split(' : ');
                 // build URL and onClick
+                const url = searchConfig.categoryPlpPathPrefix + '/' + parts[0].replace(/ > /g, '/').toLowerCase().replace(/\s/g, '-') + '/' + parts[1];
+
                 return (
-                  <div>{item.label}</div>
+                  <div><Link href={url}>{friendlyCategoryName(parts[0])}</Link></div>
                 );
               }
             }
