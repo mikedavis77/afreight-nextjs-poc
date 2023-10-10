@@ -11,7 +11,7 @@ import {
 import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
-import { QUERY_UPDATE_EVT, insightsClient, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
+import { QUERY_UPDATE_EVT, insightsClient, insightsConfig, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
@@ -96,12 +96,7 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
         searchClient={searchClient}
         indexName={searchConfig.recordsIndex}
         routing={routing}
-        insights={{
-          insightsClient: insightsClient,
-          insightsInitParams: {
-            useCookie: true,
-          },
-        }}
+        insights={insightsConfig}
       >
         <Breadcrumb
           attributes={[
