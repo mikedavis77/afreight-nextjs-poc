@@ -43,7 +43,11 @@ const autocompleteSubmitHandler = (state) => {
 
   // Validate if you are in the searchPage (Otherwise redirect using q param)
   if (window.location.pathname !== searchConfig.searchPagePath) {
-    router.push(`${searchConfig.searchPagePath}?${searchConfig.recordsIndex}[query]=${state.query}`);
+    const search = window.location.search;
+    const searchParams = new URLSearchParams(search);
+    searchParams.set(`${searchConfig.recordsIndex}[query]`, state.query);
+
+    router.push(`${searchConfig.searchPagePath}?${searchParams.toString()}`);
   } else {
     pubsub.publish(QUERY_UPDATE_EVT, {
       query: state.query,

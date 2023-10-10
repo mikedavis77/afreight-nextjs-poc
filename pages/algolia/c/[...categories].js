@@ -4,20 +4,7 @@ import { renderToString } from 'react-dom/server';
 import { InstantSearchResults } from "../../../components/algolia/InstantSearchResults";
 import singletonRouter from 'next/router';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
-
-/**
- * Router Options
- */
-const routerOptions = {
-  createURL({ qsModule, location, routeState }) {
-    const { origin, pathname, hash } = location;
-    const queryString = qsModule.stringify(routeState);
-    return `${origin}${pathname}?${queryString}${hash}`;
-  },
-  parseURL({ qsModule, location }) {
-    return qsModule.parse(location.search.slice(1));
-  },
-}
+import { routerOptions } from "../../../lib/algoliaConfig";
 
 /**
  * Main Page Prototype.
@@ -47,8 +34,8 @@ export async function getServerSideProps({ req, query }) {
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const { categories } = query;
   let categoryPageIdFilter = categories.map((str) => (str.charAt(0).toUpperCase() + str.slice(1)));
-  if (isNaN(categories[categories.lendth - 1])) {
-    categoryPageIdFilter.pop();
+  if (!isNaN(categories[categories.length - 1])) {
+   categoryPageIdFilter.pop();
   }
   categoryPageIdFilter = categoryPageIdFilter.join(" > ");
   const filters = `categoryPageId:'${categoryPageIdFilter}'`;
