@@ -77,12 +77,17 @@ function calculateRoot(extraSearchParams) {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo = false }) => {
+export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo = false, clientUserToken = null }) => {
   // Obtain GeoLocation from website
   const { selectedGeo, geoLocationRadius } = useContext(SearchContext);
   let geoOverrides = { aroundLatLng: `${selectedGeo.lat}, ${selectedGeo.long}`, aroundRadius: geoLocationRadius };
   if (skipGeo) {
     geoOverrides = false;
+  }
+
+  // Set userToken if available (this travels via cookie)
+  if (clientUserToken) {
+    insightsConfig.insightsClient('setUserToken', clientUserToken);
   }
 
   //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}

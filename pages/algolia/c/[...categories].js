@@ -10,7 +10,7 @@ import { routerOptions } from "../../../lib/algoliaConfig";
  * Main Page Prototype.
  * @returns
  */
-export default function Category({ serverState, serverUrl, extraSearchParams }) {
+export default function Category({ serverState, serverUrl, extraSearchParams, clientUserToken }) {
   return <div className="page_container">
     <InstantSearchSSRProvider {...serverState}>
       <header>
@@ -19,6 +19,7 @@ export default function Category({ serverState, serverUrl, extraSearchParams }) 
       <InstantSearchResults
         routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl, routerOptions:routerOptions }) }}
         extraSearchParams={extraSearchParams}
+        clientUserToken={clientUserToken}
       />
     </InstantSearchSSRProvider>
   </div>
@@ -30,6 +31,10 @@ export default function Category({ serverState, serverUrl, extraSearchParams }) 
  * @returns
  */
 export async function getServerSideProps({ req, query }) {
+
+  // getting cookies
+  console.log(req.cookies, '#######');
+
   const protocol = req.headers.referer?.split('://')[0] || 'https';
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const { categories } = query;
@@ -47,6 +52,7 @@ export async function getServerSideProps({ req, query }) {
       serverState,
       serverUrl,
       extraSearchParams,
+      clientUserToken: req.cookies._ALGOLIA ||  null
     },
   };
 }
