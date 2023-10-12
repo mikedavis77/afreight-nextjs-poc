@@ -184,7 +184,7 @@ export function AutocompleteSearchBar() {
                       facetQuery: query,
                       maxFacetHits: 4,
                       analyticsTags: ['web-autocomplete'],
-                      ruleContexts: ['web-autocomplete'],
+                      ruleContexts: ['web-autocomplete', 'facets-autocomplete'],
                     },
                   },
                 ],
