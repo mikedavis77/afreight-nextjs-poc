@@ -18,6 +18,7 @@ import { SearchContext } from "./Layout";
 import Link from "next/link";
 
 let router = [];
+let facetsOverride = [];
 
 // Recent Search Plugin
 const recentSearchesPlugin = createLocalStorageRecentSearchesPlugin({
@@ -145,6 +146,7 @@ export function AutocompleteSearchBar() {
                     indexName: searchConfig.recordsIndex,
                     query,
                     params: {
+                      facets: ['suggestedCategoriesLvl1'],
                       hitsPerPage: 3,
                       analyticsTags: ['web-autocomplete'],
                       ruleContexts: ['web-autocomplete'],
@@ -153,6 +155,21 @@ export function AutocompleteSearchBar() {
                     },
                   },
                 ],
+                transformResponse({ hits, results }) {
+                  try {
+                    const ruledFacets = results[0].renderingContent.facetOrdering.values.suggestedCategoriesLvl1.order;
+                    facetsOverride = ruledFacets.map(rfacet => {
+                      return {
+                        label: friendlyCategoryName(rfacet),
+                        count: 0,
+                        value: rfacet,
+                      }
+                    })
+                  } catch {
+                    facetsOverride = null;
+                  }
+                  return hits;
+                }
               });
             },
             templates: {
@@ -182,13 +199,17 @@ export function AutocompleteSearchBar() {
                     facet: 'suggestedCategoriesLvl1',
                     params: {
                       facetQuery: query,
-                      maxFacetHits: 4,
+                      maxFacetHits: 5,
                       analyticsTags: ['web-autocomplete'],
-                      ruleContexts: ['web-autocomplete', 'facets-autocomplete'],
+                      ruleContexts: ['web-autocomplete'],
                     },
                   },
                 ],
                 transformResponse({ facetHits }) {
+                  // If a returned modified by ruled occurred then return it
+                  if (facetsOverride) {
+                    return facetsOverride;
+                  }
                   // Making it easier to read
                   return facetHits.map(fhArray => {
                     return fhArray.map(fh => ({ ...fh, label: friendlyCategoryName(fh.label) }))
