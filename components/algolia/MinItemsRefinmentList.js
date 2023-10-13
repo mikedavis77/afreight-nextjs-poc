@@ -9,28 +9,28 @@ export function MinItemsRefinmentList(props) {
     refine,
     sendEvent,
   } = useRefinementList(props);
-  console.log('attribute', attribute)
+
   if (minItems >= items.length) {
     return <></>
   }
-
+  console.log(attribute, items)
   return (
     <div attribute={attribute} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
       <div className='ais-RefinementList'>
         <ul className='ais-RefinementList-list'>
           {items.map(item => (
-            <li key={item.label} className='ais-RefinementList-item'>
+            <li key={item.label} className={`ais-RefinementList-item ${item.isRefined ? 'ais-RefinementList-item--selected' : ''}`}>
               <label className="ais-RefinementList-label">
                 <input
                   className='ais-RefinementList-checkbox'
                   type="checkbox"
                   checked={item.isRefined}
                   onChange={() => {
+                    console.log(item);
                     sendEvent('click', item.value);
                     refine(item.value);
-                  }
-                  }
+                  }}
                 />
                 <span className='ais-RefinementList-labelText'>{item.label}</span>
                 <span className='ais-RefinementList-count'> ({item.count})</span>
