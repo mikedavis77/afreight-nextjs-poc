@@ -1,5 +1,6 @@
 import  { HierarchicalMenu, RefinementList } from "react-instantsearch";
 import { friendlyAttributeName } from "../../lib/algoliaConfig";
+import { MinItemsRefinmentList } from "./MinItemsRefinmentList";
 
 /**
  * Use this widget to render your facets
@@ -17,9 +18,10 @@ export function FallbackFacetWidget(props) {
   else if (!attribute.includes('hierarchical')) {
     return <div attribute={attribute} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
-      <RefinementList {...props} />
+      <MinItemsRefinmentList {...props} minItems={4}/>
     </div>
   }
+
   return <></>;
 }
 
@@ -32,12 +34,12 @@ export function transformDynamicFacets(items, {results}) {
     if (facet.includes('hierarchicalCategories')) {
       return true;
     }
+    // Only show facets that have results
     return Object.keys(results._rawResults[0].facets).some((facetObj) => {
       return facet.includes(facetObj);
     })
 
   });
-
   return filteredFacets;
 }
 
