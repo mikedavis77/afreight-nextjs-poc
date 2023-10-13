@@ -16,10 +16,7 @@ export function FallbackFacetWidget(props) {
     </div>
   }
   else if (!attribute.includes('hierarchical')) {
-    return <div attribute={attribute} className="is-facet">
-      <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>
-      <MinItemsRefinmentList {...props} minItems={4}/>
-    </div>
+    return <MinItemsRefinmentList {...props} minItems={4}/>
   }
 
   return <></>;
