@@ -9,7 +9,7 @@ export function MinItemsRefinmentList(props) {
     refine,
     sendEvent,
   } = useRefinementList(props);
-
+  console.log('attribute', attribute)
   if (minItems >= items.length) {
     return <></>
   }
