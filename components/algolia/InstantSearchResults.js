@@ -1,4 +1,4 @@
-import { useContext, useEffect, useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { Breadcrumb, ClearRefinements, CurrentRefinements, DynamicWidgets, RangeInput, SortBy, ToggleRefinement, useSearchBox } from "react-instantsearch";
 import {
   Hits,
@@ -11,7 +11,7 @@ import {
 import "instantsearch.css/themes/reset.css";
 // or include the full Satellite theme
 import "instantsearch.css/themes/satellite.css";
-import { QUERY_UPDATE_EVT, insightsClient, insightsConfig, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
+import { QUERY_UPDATE_EVT, insightsConfig, pubsub, searchClient, searchConfig } from "../../lib/algoliaConfig";
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
@@ -77,17 +77,12 @@ function calculateRoot(extraSearchParams) {
 /**
  * Main InstantSearch results component (receives query from Autocomplete Search Bar).
  */
-export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo = false, clientUserToken = null }) => {
+export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo = false }) => {
   // Obtain GeoLocation from website
   const { selectedGeo, geoLocationRadius } = useContext(SearchContext);
   let geoOverrides = { aroundLatLng: `${selectedGeo.lat}, ${selectedGeo.long}`, aroundRadius: geoLocationRadius };
   if (skipGeo) {
     geoOverrides = false;
-  }
-
-  // Set userToken if available (this travels via cookie)
-  if (clientUserToken) {
-    insightsConfig.insightsClient('setUserToken', clientUserToken);
   }
 
   //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}

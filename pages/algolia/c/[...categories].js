@@ -11,7 +11,7 @@ import { routerOptions } from "../../../lib/algoliaConfig";
  * Main Page Prototype.
  * @returns
  */
-export default function Category({ serverState, serverUrl, extraSearchParams, clientUserToken }) {
+export default function Category({ serverState, serverUrl, extraSearchParams }) {
   return <div className="page_container">
     <InstantSearchSSRProvider {...serverState}>
       <header>
@@ -20,7 +20,6 @@ export default function Category({ serverState, serverUrl, extraSearchParams, cl
       <InstantSearchResults
         routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl, routerOptions:routerOptions }) }}
         extraSearchParams={extraSearchParams}
-        clientUserToken={clientUserToken}
       />
     </InstantSearchSSRProvider>
   </div>
@@ -60,7 +59,6 @@ export async function getServerSideProps({ req, query, res }) {
       serverState,
       serverUrl,
       extraSearchParams,
-      clientUserToken
     },
   };
 }
