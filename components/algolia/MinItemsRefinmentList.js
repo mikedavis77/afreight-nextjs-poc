@@ -13,7 +13,6 @@ export function MinItemsRefinmentList(props) {
   if (minItems >= items.length) {
     return <></>
   }
-  console.log(attribute, items)
   return (
     <div attribute={attribute} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attribute).toUpperCase()}</h3>

@@ -131,7 +131,7 @@ export function AutocompleteSearchBar() {
         algoliaInsightsPlugin,
       ],
       onStateChange({ state }) {
-        console.log('Autocomplete:state:isOpen', state.isOpen);
+        // console.log('Autocomplete:state:isOpen', state.isOpen);
       },
       getSources({ query }) {
         return [

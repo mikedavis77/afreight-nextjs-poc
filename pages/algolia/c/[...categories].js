@@ -1,4 +1,5 @@
 import React from "react";
+import crypto from 'crypto';
 import { InstantSearchSSRProvider, getServerState } from 'react-instantsearch';
 import { renderToString } from 'react-dom/server';
 import { InstantSearchResults } from "../../../components/algolia/InstantSearchResults";
@@ -30,19 +31,26 @@ export default function Category({ serverState, serverUrl, extraSearchParams, cl
  * @param {*} param0
  * @returns
  */
-export async function getServerSideProps({ req, query }) {
-
-  // getting cookies
-  console.log(req.cookies, '#######');
+export async function getServerSideProps({ req, query, res }) {
 
   const protocol = req.headers.referer?.split('://')[0] || 'https';
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const { categories } = query;
+
+  // Calculate user-token via server
+  let clientUserToken = req.cookies._ALGOLIA || null;
+  // Set cookie if not found
+  if (clientUserToken === null) {
+    clientUserToken = 's__' + crypto.randomUUID();
+    res.setHeader('Set-Cookie', `_ALGOLIA=${clientUserToken}; Path=/;`)
+  }
+
   let categoryPageIdFilter = categories.map((str) => (str.charAt(0).toUpperCase() + str.slice(1)));
   if (!isNaN(categories[categories.length - 1])) {
    categoryPageIdFilter.pop();
   }
   categoryPageIdFilter = categoryPageIdFilter.join(" > ");
+
   const filters = `categoryPageId:'${categoryPageIdFilter}'`;
   const extraSearchParams = { filters: filters };
   const serverState = await getServerState(<Category serverUrl={serverUrl} extraSearchParams={extraSearchParams} />, { renderToString });
@@ -52,7 +60,7 @@ export async function getServerSideProps({ req, query }) {
       serverState,
       serverUrl,
       extraSearchParams,
-      clientUserToken: req.cookies._ALGOLIA ||  null
+      clientUserToken
     },
   };
 }
