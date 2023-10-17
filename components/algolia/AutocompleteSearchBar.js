@@ -207,7 +207,7 @@ export function AutocompleteSearchBar() {
                 ],
                 transformResponse({ facetHits }) {
                   // If a returned modified by ruled occurred then return it
-                  if (facetsOverride) {
+                  if (facetsOverride && facetsOverride.length > 0) {
                     return facetsOverride;
                   }
                   // Making it easier to read
