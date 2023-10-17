@@ -10,6 +10,7 @@ import { MinItemsRefinmentList } from "./MinItemsRefinmentList";
 export function FallbackFacetWidget(props) {
   const { attributes, attribute } = props;
   if (attributes) {
+    console.log('props', props)
     return <div attributes={attributes} className="is-facet">
       <h3 className="is-facet__label">{friendlyAttributeName(attributes[0]).toUpperCase()}</h3>
       <HierarchicalMenu {...props} />
