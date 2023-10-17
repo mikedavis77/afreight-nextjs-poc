@@ -49,7 +49,6 @@ function ProductDetailPage({ hit }) {
       });
     }
   }
-
   return (
     <>
       <div className="pdp-hit">
@@ -66,7 +65,7 @@ function ProductDetailPage({ hit }) {
               {[hit.stockimage, hit.productHoverImageUrl].filter(u => u.length ).map((url, index) => (
                 <div key={index}>
                   <img src={url} alt={`Image ${index}`} />
-                  <p className="legend">${hit.currPrice.price}</p>
+                  <p className="legend">{hit.currPrice.displayPrice}</p>
                 </div>
               ))}
             </Carousel>
