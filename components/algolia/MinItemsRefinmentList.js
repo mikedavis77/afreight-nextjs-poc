@@ -26,7 +26,6 @@ export function MinItemsRefinmentList(props) {
                   type="checkbox"
                   checked={item.isRefined}
                   onChange={() => {
-                    console.log(item);
                     sendEvent('click', item.value);
                     refine(item.value);
                   }}

@@ -16,7 +16,7 @@ export function FallbackFacetWidget(props) {
     </div>
   }
   else if (!attribute.includes('hierarchical')) {
-    return <MinItemsRefinmentList {...props} minItems={4}/>
+    return <MinItemsRefinmentList {...props} minItems={2}/>
   }
 
   return <></>;

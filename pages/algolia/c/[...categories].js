@@ -6,6 +6,7 @@ import { InstantSearchResults } from "../../../components/algolia/InstantSearchR
 import singletonRouter from 'next/router';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 import { routerOptions } from "../../../lib/algoliaConfig";
+import { needsForwarding, translateURLToAlgoliaFormat } from "../../../lib/common";
 
 /**
  * Main Page Prototype.
@@ -31,10 +32,14 @@ export default function Category({ serverState, serverUrl, extraSearchParams }) 
  * @returns
  */
 export async function getServerSideProps({ req, query, res }) {
-
   const protocol = req.headers.referer?.split('://')[0] || 'https';
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const { categories } = query;
+
+  // check redirects
+  if(needsForwarding(req.url)) {
+    return translateURLToAlgoliaFormat(req.url)
+  }
 
   // Calculate user-token via server
   let clientUserToken = req.cookies._ALGOLIA || null;

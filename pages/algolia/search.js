@@ -7,6 +7,7 @@ import { renderToString } from 'react-dom/server';
 import singletonRouter from 'next/router';
 import { createInstantSearchRouterNext } from 'react-instantsearch-router-nextjs';
 import { routerOptions } from "../../lib/algoliaConfig";
+import { needsForwarding, translateURLToAlgoliaFormat } from "../../lib/common";
 
 /**
  * Main Page Prototype.
@@ -30,6 +31,11 @@ export default function SearchPage({ serverState, serverUrl }) {
 export async function getServerSideProps({ req, res }) {
   const protocol = req.headers.referer?.split('://')[0] || 'https';
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
+
+  // check redirects
+  if (needsForwarding(req.url)) {
+    return translateURLToAlgoliaFormat(req.url)
+  }
 
   // Calculate user-token via server
   let clientUserToken = req.cookies._ALGOLIA || null;
