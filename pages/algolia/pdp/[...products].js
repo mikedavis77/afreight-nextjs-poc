@@ -49,7 +49,9 @@ function ProductDetailPage({ hit }) {
       });
     }
   }
-  console.log('hits.', hit);
+  if (!hit.productHoverImageUrl) {
+    hit.productHoverImageUrl = hit.productImageUrl;
+  }
   return (
     <>
       <div className="pdp-hit">
