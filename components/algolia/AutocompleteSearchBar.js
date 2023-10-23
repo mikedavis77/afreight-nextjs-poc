@@ -229,12 +229,11 @@ export function AutocompleteSearchBar() {
               item({ item }) {
                 // extract the id split(:)
                 const parts = item.label.includes(' : ') ? item.label.split(' : ') : item.label.split(': ');
-                console.log('parts', parts)
+
                 // extract the last ID
                 const catId = parts.pop();
 
                 // build URL and onClick
-
                 const fstring = parts.join(':').split(' > ').map(cat => {
                   if (cat.includes(':')) {
                     return cat.split(':')[0];
