@@ -49,6 +49,7 @@ function ProductDetailPage({ hit }) {
       });
     }
   }
+  console.log('hits.', hit);
   return (
     <>
       <div className="pdp-hit">
@@ -62,7 +63,7 @@ function ProductDetailPage({ hit }) {
           </div>
           <div className="pdp-hit-pictures">
             <Carousel showArrows={true} showThumbs={true} axis={"horizontal"} centerMode="false" autoPlay={true} emulateTouch={true} onClickItem={handleClickAfterSearch} onClickThumb={handleClickAfterSearch}>
-              {[hit.stockimage, hit.productHoverImageUrl].filter(u => u.length ).map((url, index) => (
+              {[hit.productImageUrl, hit.productHoverImageUrl].filter(u => u.length ).map((url, index) => (
                 <div key={index}>
                   <img src={url} alt={`Image ${index}`} />
                   <p className="legend">{hit.currPrice.displayPrice}</p>

@@ -89,7 +89,7 @@ export const HitComponent = ({ hit, sendEvent }) => {
   return (<div className="hit">
     {distance * 1609 < searchConfig.geoLocationRadius  && <span className="nearby-flag">Near by</span>}
     <div className="hit-picture" onClick={() => handleObjectClick(hit)}>
-      <img src={`${hit.stockimage}`} alt={hit.produtName} width={100} height={100} />
+      <img src={`${hit.productImageUrl}`} alt={hit.produtName} width={100} height={100} />
     </div>
     <div className="hit-content">
       <div className="aa-ItemId" onClick={() => handleObjectClick(hit)}>{hit.objectID}</div>

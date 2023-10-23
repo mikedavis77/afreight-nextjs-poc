@@ -19,7 +19,7 @@ export function ProductItem({ hit, components }) {
     }}>
       <div className="aa-ItemContent">
         <div className="aa-ItemIcon aa-ItemIcon--picture aa-ItemIcon--alignTop hit">
-          <img src={hit.stockimage} alt={hit.productTitle} width="40" height="40" />
+          <img src={hit.productImageUrl} alt={hit.productTitle} width="40" height="40" />
           {distance * 1609 < searchConfig.geoLocationRadius && <span className="nearby-flag">Near by</span>}
         </div>
 

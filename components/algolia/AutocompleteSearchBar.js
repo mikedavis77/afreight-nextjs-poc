@@ -196,7 +196,7 @@ export function AutocompleteSearchBar() {
                 queries: [
                   {
                     indexName: searchConfig.recordsIndex,
-                    facet: 'suggestedCategoriesLvl1',
+                    facet: 'hierarchicalCategoriesWithIds.lvl1',
                     params: {
                       facetQuery: query,
                       maxFacetHits: 5,
