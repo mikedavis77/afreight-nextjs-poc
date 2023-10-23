@@ -228,12 +228,25 @@ export function AutocompleteSearchBar() {
               },
               item({ item }) {
                 // extract the id split(:)
-                const parts = item.label.split(' : ');
+                const parts = item.label.includes(' : ') ? item.label.split(' : ') : item.label.split(': ');
+                console.log('parts', parts)
+                // extract the last ID
+                const catId = parts.pop();
+
                 // build URL and onClick
-                const url = searchConfig.categoryPlpPathPrefix + '/' + parts[0].replace(/ > /g, '/').toLowerCase().replace(/\s/g, '-').replace(/&-/g, '') + '/' + parts[1];
+
+                const fstring = parts.join(':').split(' > ').map(cat => {
+                  if (cat.includes(':')) {
+                    return cat.split(':')[0];
+                  } else {
+                    return cat;
+                  }
+                }).join(' > ');
+
+                const url = searchConfig.categoryPlpPathPrefix + '/' + fstring.replace(/ > /g, '/').toLowerCase().replace(/\s/g, '-').replace(/&-/g, '') + '/' + catId;
 
                 return (
-                  <div><Link href={url}>{friendlyCategoryName(parts[0])}</Link></div>
+                  <div><Link href={url}>{friendlyCategoryName(fstring)}</Link></div>
                 );
               }
             }
