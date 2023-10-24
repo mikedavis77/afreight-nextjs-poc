@@ -146,7 +146,7 @@ export function AutocompleteSearchBar() {
                     indexName: searchConfig.recordsIndex,
                     query,
                     params: {
-                      facets: ['suggestedCategoriesLvl1'],
+                      facets: ['hierarchicalCategoriesWithIds.lvl1'],
                       hitsPerPage: 3,
                       analyticsTags: ['web-autocomplete'],
                       ruleContexts: ['web-autocomplete'],
@@ -157,7 +157,7 @@ export function AutocompleteSearchBar() {
                 ],
                 transformResponse({ hits, results }) {
                   try {
-                    const ruledFacets = results[0].renderingContent.facetOrdering.values.suggestedCategoriesLvl1.order;
+                    const ruledFacets = results[0].renderingContent.facetOrdering.values['hierarchicalCategoriesWithIds.lvl1'].order;
                     facetsOverride = ruledFacets.map(rfacet => {
                       return {
                         label: friendlyCategoryName(rfacet),
