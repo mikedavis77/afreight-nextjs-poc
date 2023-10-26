@@ -156,6 +156,7 @@ export function AutocompleteSearchBar() {
                   },
                 ],
                 transformResponse({ hits, results }) {
+                       // Pin categories workaround.
                   try {
                     const ruledFacets = results[0].renderingContent.facetOrdering.values['hierarchicalCategoriesWithIds.lvl1'].order;
                     facetsOverride = ruledFacets.map(rfacet => {
@@ -168,7 +169,11 @@ export function AutocompleteSearchBar() {
                   } catch {
                     facetsOverride = null;
                   }
-                  return hits;
+
+                  // Adding position for events mapping
+                  return hits[0].map((hit, position) => {
+                    return { ...hit, __position: position + 1 };
+                  });
                 }
               });
             },
