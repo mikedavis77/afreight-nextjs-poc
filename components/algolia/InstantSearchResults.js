@@ -81,6 +81,12 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
     geoOverrides = false;
   }
 
+  // adding analytics
+  if (typeof window !== 'undefined') {
+    delete extraSearchParams['analytics'];
+    console.log('extraSearchParams', extraSearchParams)
+  }
+
   //aroundLatLng={`${selectedGeo.lat}, ${selectedGeo.long}`}
   return (
     <div className="search-is">

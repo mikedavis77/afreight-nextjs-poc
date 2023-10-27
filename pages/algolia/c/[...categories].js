@@ -56,7 +56,7 @@ export async function getServerSideProps({ req, query, res }) {
   categoryPageIdFilter = categoryPageIdFilter.join(" > ");
 
   const filters = `categoryPageId:'${categoryPageIdFilter}'`;
-  const extraSearchParams = { filters: filters };
+  const extraSearchParams = { filters: filters, analytics: false };
   const serverState = await getServerState(<Category serverUrl={serverUrl} extraSearchParams={extraSearchParams} />, { renderToString });
 
   return {
