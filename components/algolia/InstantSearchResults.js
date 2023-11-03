@@ -15,7 +15,7 @@ import { QUERY_UPDATE_EVT, insightsConfig, pubsub, searchClient, searchConfig } 
 import { HitComponent } from "./HitComponent";
 import { CategoryPageSuggestions } from "./CategoryPageSuggestions";
 import { RatingMenu } from "./RatingMenu";
-import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./DynamicFacetsWidgets";
+import { FacetWidgetPanel, FacetWidgetPanelAF, FallbackFacetWidget, transformDynamicFacets } from "./DynamicFacetsWidgets";
 import { SearchContext } from "./Layout";
 import NearBytoggle from "./NearbyToggle";
 import AlgoliaColorFamily from "./AlgoliaColorFamily";
@@ -123,9 +123,24 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
               <FacetWidgetPanel attribute={"currPrice.price"}>
                 <RangeInput attribute="currPrice.price" />
               </FacetWidgetPanel>
-              <FacetWidgetPanel attribute={"attributes.Color Family"}>
-                <AlgoliaColorFamily attribute={"attributes.Color Family"} />
+              <FacetWidgetPanel attribute={"customAttributes.depth"}>
+                <RangeInput attribute="customAttributes.depth" />
               </FacetWidgetPanel>
+              <FacetWidgetPanel attribute={"customAttributes.capacity"}>
+                <RangeInput attribute="customAttributes.capacity" />
+              </FacetWidgetPanel>
+              <FacetWidgetPanel attribute={"customAttributes.height"}>
+                <RangeInput attribute="customAttributes.height" />
+              </FacetWidgetPanel>
+              <FacetWidgetPanel attribute={"customAttributes.width"}>
+                <RangeInput attribute="customAttributes.width" />
+              </FacetWidgetPanel>
+              <FacetWidgetPanel attribute={"customAttributes.Mattress Thickness"}>
+                <RangeInput attribute="customAttributes.Mattress Thickness" />
+              </FacetWidgetPanel>
+              <FacetWidgetPanelAF attribute={"attributes.Color Family"}>
+                <AlgoliaColorFamily attribute={"attributes.Color Family"} />
+              </FacetWidgetPanelAF>
               <FacetWidgetPanel attribute={"averageRating"}>
                 <RatingMenu attribute="averageRating" />
               </FacetWidgetPanel>
