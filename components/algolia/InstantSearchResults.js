@@ -18,6 +18,7 @@ import { RatingMenu } from "./RatingMenu";
 import { FacetWidgetPanel, FallbackFacetWidget, transformDynamicFacets } from "./DynamicFacetsWidgets";
 import { SearchContext } from "./Layout";
 import NearBytoggle from "./NearbyToggle";
+import AlgoliaColorFamily from "./AlgoliaColorFamily";
 
 /**
  * Virtual SearchBox that receives updates from Autocomplete
@@ -122,7 +123,9 @@ export const InstantSearchResults = ({ routing, extraSearchParams = {}, skipGeo 
               <FacetWidgetPanel attribute={"currPrice.price"}>
                 <RangeInput attribute="currPrice.price" />
               </FacetWidgetPanel>
-
+              <FacetWidgetPanel attribute={"attributes.Color Family"}>
+                <AlgoliaColorFamily attribute={"attributes.Color Family"} />
+              </FacetWidgetPanel>
               <FacetWidgetPanel attribute={"averageRating"}>
                 <RatingMenu attribute="averageRating" />
               </FacetWidgetPanel>
