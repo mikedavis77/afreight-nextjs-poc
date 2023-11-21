@@ -34,8 +34,6 @@ export async function getServerSideProps({ req, query, res }) {
   const protocol = req.headers.referer?.split('://')[0] || 'https';
   const serverUrl = `${protocol}://${req.headers.host}${req.url}`;
   const {context} = query;
-  const extraSearchParams = { ruleContexts: [context], query:'' };
-  const serverState = await getServerState(<Category serverUrl={serverUrl} extraSearchParams={extraSearchParams} />, { renderToString });
 
   // Calculate user-token via server
   let clientUserToken = req.cookies._ALGOLIA || null;
@@ -44,6 +42,10 @@ export async function getServerSideProps({ req, query, res }) {
     clientUserToken = 's__' + crypto.randomUUID();
     res.setHeader('Set-Cookie', `_ALGOLIA=${clientUserToken}; Path=/;`)
   }
+
+  // Set user token
+  const extraSearchParams = { ruleContexts: [context], query:'', userToken: clientUserToken };
+  const serverState = await getServerState(<Category serverUrl={serverUrl} extraSearchParams={extraSearchParams} />, { renderToString });
 
   return {
     props: {

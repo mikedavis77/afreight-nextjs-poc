@@ -13,11 +13,12 @@ import { needsForwarding, translateURLToAlgoliaFormat } from "../../lib/common";
  * Main Page Prototype.
  * @returns
  */
-export default function SearchPage({ serverState, serverUrl }) {
+export default function SearchPage({ serverState, serverUrl, extraSearchParams }) {
   return <div className="page_container">
     <InstantSearchSSRProvider {...serverState}>
       <InstantSearchResults
         routing={{ router: createInstantSearchRouterNext({ singletonRouter, serverUrl: serverUrl, routerOptions: routerOptions }) }}
+        extraSearchParams={extraSearchParams}
         />
     </InstantSearchSSRProvider>
   </div>
@@ -45,12 +46,13 @@ export async function getServerSideProps({ req, res }) {
     res.setHeader('Set-Cookie', `_ALGOLIA=${clientUserToken}; Path=/;`)
   }
 
-  const serverState = await getServerState(<SearchPage serverUrl={serverUrl} />, { renderToString });
+  const serverState = await getServerState(<SearchPage serverUrl={serverUrl} extraSearchParams={{userToken: clientUserToken}}/>, { renderToString });
 
   return {
     props: {
       serverState,
       serverUrl,
+      extraSearchParams: { userToken: clientUserToken },
     },
   };
 }
